@@ -26,7 +26,7 @@ tasks.withType(JavaCompile) {
 
 application {
     mainModule = 'com.example.hovatuntarendelesemjava'
-    mainClass = 'com.example.hovatuntarendelesemjava.HelloApplication'
+    mainClass = 'com.example.hovatuntarendelesemjava.Main'
 }
 
 javafx {
@@ -39,6 +39,7 @@ dependencies {
         exclude(group: 'org.openjfx')
     }
     implementation('org.kordamp.bootstrapfx:bootstrapfx-core:0.4.0')
+    implementation('com.google.code.gson:gson:2.10.1')
 
     testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")

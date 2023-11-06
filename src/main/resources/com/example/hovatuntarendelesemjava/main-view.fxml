@@ -1,14 +1,72 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="$CONTROLLER_NAME$"
-            prefHeight="400.0" prefWidth="600.0" >
+<AnchorPane fx:id="parentAnchorPane" prefHeight="720.0" prefWidth="1280.0" styleClass="main-window" stylesheets="@css/main-view-style.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.hovatuntarendelesemjava.MainViewController">
+    <!--Top Menu-->
+    <GridPane alignment="CENTER_RIGHT" styleClass="top-menu" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
 
+        <rowConstraints><RowConstraints maxHeight="60" /></rowConstraints>
+
+        <columnConstraints>
+            <ColumnConstraints halignment="LEFT" />
+            <ColumnConstraints halignment="CENTER" maxWidth="150" />
+            <ColumnConstraints halignment="CENTER" maxWidth="150" />
+
+        </columnConstraints>
+
+        <Text text="HovaTuntARendelesemJava?" GridPane.hgrow="ALWAYS" />
+
+        <Button fx:id="settingsButton" maxHeight="Infinity" maxWidth="Infinity" text="SETTINGS" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" />
+        <Button fx:id="logOutButton" maxHeight="Infinity" maxWidth="Infinity" text="LOG OUT" GridPane.columnIndex="2" GridPane.hgrow="ALWAYS" />
+
+    </GridPane>
+    <!-- Client area-->
+    <GridPane fx:id="clientAnchorPane" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="60.0">
+        <columnConstraints>
+            <ColumnConstraints />
+        </columnConstraints>
+        <rowConstraints>
+            <RowConstraints />
+            <RowConstraints />
+
+        </rowConstraints>
+        <HBox fx:id="clientHeader" styleClass="client-header" GridPane.hgrow="ALWAYS">
+            <RadioButton fx:id="vehiclesButton" onMouseClicked="#onVehiclesButtonClicked" text="Vehicles" />
+            <RadioButton fx:id="driversButton" text="Drivers" />
+            <RadioButton fx:id="shipmentButton" text="Shipment" />
+            <RadioButton fx:id="customersButton" text="Customers" />
+        </HBox>
+        <ScrollPane fx:id="clientScrollPane" fitToWidth="true" GridPane.rowIndex="1">
+            <content>
+                <GridPane fx:id="itemsGridPane" maxWidth="Infinity" styleClass="items-box">
+                    <columnConstraints>
+                        <ColumnConstraints />
+                    </columnConstraints>
+
+                    <rowConstraints>
+                        <RowConstraints />
+                        <RowConstraints />
+                        <RowConstraints />
+                    </rowConstraints>
+
+                    <HBox fx:id="itemsHeader" styleClass="items-header">
+
+                    </HBox>
+                    <TableView fx:id="itemsView" styleClass="items-view" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1">
+
+                    </TableView>
+                    <HBox fx:id="itemsControls" styleClass="items-controls" GridPane.rowIndex="2">
+                        <Button fx:id="addItemButton" onMouseClicked="#onAddButtonClicked" text="+" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                        <Button fx:id="removeItemButton" text="-" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <Button fx:id="refreshButton" text="⟳" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                    </HBox>
+
+                </GridPane>
+            </content>
+        </ScrollPane>
+
+    </GridPane>
 </AnchorPane>
