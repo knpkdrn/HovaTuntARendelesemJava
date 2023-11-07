@@ -20,128 +20,159 @@ public class Vehicle {
     private Integer shipmentId; // This can be null, so use the Integer class
     private String vehicleStatus;
 
+    public Vehicle() {
+        setLicensePlate("AAA000");
+        setMake("toyoda");
+        setModel("alygo");
+        setProdYear(1848);
+        setCost(4.0);
+        setMaxFuelInLiter(400);
+        setLastRefuelling("2002-01-24");
+        setLastRefuellingCost(36);
+        setCapacity(3425);
+        setMaintenanceInterval(43);
+        setLastMaintenance("2002-01-24");
+        setNextMaintenance("2002-01-24");
+        setDoneDistance(324.0);
+        setAvgConsumption(32.0);
+        setDriverId(4);
+        setShipmentId(52);
+        setVehicleStatus("active");
+    }
+
     public String getLicensePlate() {
         return licensePlate;
     }
+
     public String getMake() {
         return make;
     }
+
     public String getModel() {
         return model;
     }
+
     public int getProdYear() {
         return prodYear;
     }
+
     public Double getCost() {
         return cost;
     }
+
     public int getMaxFuelInLiter() {
         return maxFuelInLiter;
     }
+
     public String getLastRefuelling() {
         return lastRefuelling;
     }
+
     public Integer getLastRefuellingCost() {
         return lastRefuellingCost;
     }
+
     public int getCapacity() {
         return capacity;
     }
+
     public int getMaintenanceInterval() {
         return maintenanceInterval;
     }
+
     public String getLastMaintenance() {
         return lastMaintenance;
     }
+
     public String getNextMaintenance() {
         return nextMaintenance;
     }
+
     public Double getDoneDistance() {
         return doneDistance;
     }
+
     public Double getAvgConsumption() {
         return avgConsumption;
     }
+
     public Integer getDriverId() {
         return driverId;
     }
+
     public Integer getShipmentId() {
         return shipmentId;
     }
+
     public String getVehicleStatus() {
         return vehicleStatus;
     }
-    public void setLicensePlate(String lPlate) {
-        licensePlate = lPlate;
-    }
-    public void setMake(String m) {
-        make = m;
-    }
-    public void setModel(String m) {
-        model = m;
-    }
-    public void setProdYear(int year) {
-        prodYear = year;
-    }
-    public void setCost(Double c) {
-        cost = c;
-    }
-    public void setMaxFuelInLiter(int i) {
-        maxFuelInLiter = i;
-    }
-    public void setLastRefuelling(String s) {
-        lastRefuelling = s;
-    }
-    public void setLastRefuellingCost(Integer i) {
-        lastRefuellingCost = i;
-    }
-    public void setCapacity(int i) {
-        capacity = i;
-    }
-    public void setMaintenanceInterval(int i) {
-        maintenanceInterval = i;
-    }
-    public void setLastMaintenance(String s) {
-        lastMaintenance = s;
-    }
-    public void setNextMaintenance(String s) {
-        nextMaintenance = s;
-    }
-    public void setDoneDistance(Double distance) {
-        doneDistance = distance;
-    }
-    public void setAvgConsumption(Double avg) {
-        avgConsumption = avg;
-    }
-    public void setDriverId(Integer id) {
-        driverId = id;
-    }
-    public void setShipmentId(Integer id) {
-        shipmentId = id;
-    }
-    public void setVehicleStatus(String s) {
-        vehicleStatus = s;
+
+    public void setLicensePlate(String licensePlate) {
+        this.licensePlate = licensePlate;
     }
 
-    public String toString() {
-        return new String(
-                "license_plate=" + licensePlate + "; " +
-                        " make=" + make + ";" +
-                        " model=" + model + "; " +
-                        " production_year=" + prodYear + "; " +
-                        " cost=" + cost + "; " +
-                        " max_fuel_liter=" + maxFuelInLiter + "; " +
-                        " last_refuelling=" + lastRefuelling + "; " +
-                        " last_refuelling_cost=" + lastRefuellingCost + "; " +
-                        " capacity=" + capacity + "; " +
-                        " maintenance_interval=" + maintenanceInterval + "; " +
-                        " last_maintenance_date=" + lastMaintenance + "; " +
-                        " next_maintenance_date=" + nextMaintenance + "; " +
-                        " done_distance_km=" + doneDistance + "; " +
-                        " avg_consumption=" + avgConsumption + "; " +
-                        " driver_id=" + driverId + "; " +
-                        " shipment_id=" + shipmentId + "; " +
-                        " vehicle_status=" + vehicleStatus + "; ");
+    public void setMake(String make) {
+        this.make = make;
     }
 
+    public void setModel(String model) {
+        this.model = model;
+    }
+
+    public void setProdYear(int prodYear) {
+        this.prodYear = prodYear;
+    }
+
+    public void setCost(Double cost) {
+        this.cost = cost;
+    }
+
+    public void setMaxFuelInLiter(int maxFuelInLiter) {
+        this.maxFuelInLiter = maxFuelInLiter;
+    }
+
+    public void setLastRefuelling(String lastRefuelling) {
+        this.lastRefuelling = lastRefuelling;
+    }
+
+    public void setLastRefuellingCost(Integer lastRefuellingCost) {
+        this.lastRefuellingCost = lastRefuellingCost;
+    }
+
+    public void setCapacity(int capacity) {
+        this.capacity = capacity;
+    }
+
+    public void setMaintenanceInterval(int maintenanceInterval) {
+        this.maintenanceInterval = maintenanceInterval;
+    }
+
+    public void setLastMaintenance(String lastMaintenance) {
+        this.lastMaintenance = lastMaintenance;
+    }
+
+    public void setNextMaintenance(String nextMaintenance) {
+        this.nextMaintenance = nextMaintenance;
+    }
+
+    public void setDoneDistance(Double doneDistance) {
+        this.doneDistance = doneDistance;
+    }
+
+    public void setAvgConsumption(Double avgConsumption) {
+        this.avgConsumption = avgConsumption;
+    }
+
+    public void setDriverId(Integer driverId) {
+        this.driverId = driverId;
+    }
+
+    public void setShipmentId(Integer shipmentId) {
+        this.shipmentId = shipmentId;
+    }
+
+    public void setVehicleStatus(String vehicleStatus) {
+        this.vehicleStatus = vehicleStatus;
+    }
 }

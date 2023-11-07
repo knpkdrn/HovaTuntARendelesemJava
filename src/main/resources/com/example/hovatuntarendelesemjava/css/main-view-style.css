@@ -108,21 +108,29 @@
 .items-box{
     -fx-background-color: rgb(0,0,0,0.3);
 }
-.items-box Button{
+.items-controls Button{
+
     -fx-background-color: transparent;
     -fx-background-radius: 10;
     -fx-text-fill: #FFEED6;
     -fx-font-size: 18px;
 }
-.items-box Button:hover{
+.items-controls Button:hover{
     -fx-background-color: rgb(255,255,255,0.2);
 }
-.items-box Button:pressed{
+.items-controls Button:pressed{
     -fx-background-color: rgb(0,0,0,0.2);
 }
 .items-view{
     -fx-padding:10px;
+    -fx-text-fill: black;
 }
+.items-view .column-header .label {
+    -fx-text-fill: black;
+    -fx-font-size:18px;
+    -fx-font-weight: bold;
+}
+
 .items-record{
     -fx-border-color: white;
     -fx-border-width: 0 0 1 0;
