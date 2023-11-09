@@ -2,6 +2,7 @@ package com.example.hovatuntarendelesemjava;
 
 import com.example.hovatuntarendelesemjava.model.Driver;
 import com.example.hovatuntarendelesemjava.model.Vehicle;
+import com.example.hovatuntarendelesemjava.model.apihandler.VehicleHandler;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -75,13 +76,13 @@ public class MainViewController {
 
     @FXML
     private void onAddButtonClicked() {
-        //VehicleHandler.sendPostRequest();
-        if (vehiclesButton.isSelected()){
+        VehicleHandler.sendPostRequest();
+        /*if (vehiclesButton.isSelected()){
             vehicleList.add(new Vehicle());
         }
         else if (driversButton.isSelected()){
             driverList.add(new Driver());
-        }
+        }*/
 
     }
     @FXML

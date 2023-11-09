@@ -18,7 +18,7 @@ public class VehicleHandler {
         String json = gson.toJson(vehicle);
 
         HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create("https://3c23-84-3-207-209.ngrok.io/api/vehicles/getAll"))
+                .uri(URI.create("http://localhost:8081/api/vehicles/licensePlate/AAA000"))
                 .header("Content-Type", "application/json")
                 .GET()
                 .build();
