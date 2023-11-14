@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<GridPane xmlns="http://javafx.com/javafx"
+          xmlns:fx="http://javafx.com/fxml"
+          fx:controller="com.example.hovatuntarendelesemjava.AddPopupController"
+          prefWidth="300" prefHeight="200">
+    <HBox>
+        <!-- Add UI components for data entry here -->
+        <TextField fx:id="attribute1Field" promptText="Attribute 1"/>
+        <TextField fx:id="attribute2Field" promptText="Attribute 2"/>
+        <!-- Add more TextFields for other attributes -->
+        <Button text="Save" onAction="#onSaveButtonClicked"/>
+
+    </HBox>
+
+
+
+</GridPane>
+
+        <!--<AnchorPane xmlns="http://javafx.com/javafx"
+                    xmlns:fx="http://javafx.com/fxml"
+                    fx:controller="com.example.hovatuntarendelesemjava.Popupcontroller"
+                    prefHeight="400.0" prefWidth="600.0">
+            <Label text="This is the New Window"/>
+
+           <GridPane>
+               <columnConstraints>
+                   <ColumnConstraints />
+                   <ColumnConstraints />
+                   <ColumnConstraints />
+                   <ColumnConstraints />
+                   <ColumnConstraints />
+                   <ColumnConstraints />
+                   <ColumnConstraints />
+                   <ColumnConstraints />
+                   <ColumnConstraints />
+                   <ColumnConstraints />
+                   <ColumnConstraints />
+                   <ColumnConstraints />
+                   <ColumnConstraints />
+                   <ColumnConstraints />
+                   <ColumnConstraints />
+                   <ColumnConstraints />
+                   <ColumnConstraints />
+                   <ColumnConstraints />
+               </columnConstraints>
+               <rowConstraints>
+                   <RowConstraints />
+                   <RowConstraints />
+               </rowConstraints>
+
+                <Label GridPane.rowIndex="0" GridPane.columnIndex="0" text="licensePlate"/>
+               <Label GridPane.rowIndex="0" GridPane.columnIndex="1" text="make"/>
+               <Label GridPane.rowIndex="0" GridPane.columnIndex="2" text="model"/>
+               <Label GridPane.rowIndex="0" GridPane.columnIndex="3" text="prodYear"/>
+               <Label GridPane.rowIndex="0" GridPane.columnIndex="4" text="cost"/>
+               <Label GridPane.rowIndex="0" GridPane.columnIndex="5" text=" maxFuelInLiter"/>
+               <Label GridPane.rowIndex="0" GridPane.columnIndex="6" text="lastRefuelling"/>
+               <Label GridPane.rowIndex="0" GridPane.columnIndex="7" text="lastRefuellingCost"/>
+               <Label GridPane.rowIndex="0" GridPane.columnIndex="8" text="capacity"/>
+               <Label GridPane.rowIndex="0" GridPane.columnIndex="9" text="maintenanceInterval"/>
+               <Label GridPane.rowIndex="0" GridPane.columnIndex="10" text="lastMaintenance"/>
+               <Label GridPane.rowIndex="0" GridPane.columnIndex="11" text="nextMaintenance"/>
+               <Label GridPane.rowIndex="0" GridPane.columnIndex="12" text="doneDistance"/>
+               <Label GridPane.rowIndex="0" GridPane.columnIndex="13" text="avgConsumption"/>
+               <Label GridPane.rowIndex="0" GridPane.columnIndex="14" text="driverId"/>
+               <Label GridPane.rowIndex="0" GridPane.columnIndex="15" text="shipmentId"/>
+               <Label GridPane.rowIndex="0" GridPane.columnIndex="16" text="vehicleStatus"/>
+
+               <TextField GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+               <TextField GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+               <TextField GridPane.columnIndex="2" GridPane.rowIndex="1"/>
+               <TextField GridPane.columnIndex="3" GridPane.rowIndex="1"/>
+               <TextField GridPane.columnIndex="4" GridPane.rowIndex="1"/>
+               <TextField GridPane.columnIndex="5" GridPane.rowIndex="1"/>
+               <TextField GridPane.columnIndex="6" GridPane.rowIndex="1"/>
+               <TextField GridPane.columnIndex="7" GridPane.rowIndex="1"/>
+               <TextField GridPane.columnIndex="8" GridPane.rowIndex="1"/>
+               <TextField GridPane.columnIndex="9" GridPane.rowIndex="1"/>
+               <TextField GridPane.columnIndex="10" GridPane.rowIndex="1"/>
+               <TextField GridPane.columnIndex="11" GridPane.rowIndex="1"/>
+               <TextField GridPane.columnIndex="12" GridPane.rowIndex="1"/>
+               <TextField GridPane.columnIndex="13" GridPane.rowIndex="1"/>
+               <TextField GridPane.columnIndex="14" GridPane.rowIndex="1"/>
+               <TextField GridPane.columnIndex="15" GridPane.rowIndex="1"/>
+               <TextField GridPane.columnIndex="16" GridPane.rowIndex="1"/>
+
+
+
+           </GridPane>
+
+
+</AnchorPane>-->

@@ -20,6 +20,9 @@ public class Driver {
     private String emailAddress;
     private String assignedVehicleLicense;
 
+    public Driver(String text, String text1) {
+    }
+
     public int getDriverID() {
         return driverID;
     }

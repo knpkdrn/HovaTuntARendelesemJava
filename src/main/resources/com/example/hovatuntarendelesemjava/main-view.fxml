@@ -39,9 +39,9 @@
             <RadioButton fx:id="shipmentButton" onMouseClicked="#onShipmentButtonClicked" text="Shipment" />
             <RadioButton fx:id="customersButton" onMouseClicked="#onCustomersButtonClicked" text="Customers" />
         </HBox>
-        <ScrollPane fx:id="clientScrollPane" fitToHeight="true" fitToWidth="true" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS">
+        <ScrollPane fx:id="clientScrollPane" fitToHeight="true" fitToWidth="true" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS" hbarPolicy="ALWAYS">
             <content>
-                <GridPane fx:id="itemsGridPane" maxHeight="Infinity" maxWidth="Infinity" styleClass="items-box">
+                <GridPane fx:id="itemsGridPane" maxHeight="Infinity" maxWidth="Infinity" styleClass="items-box"  >
                     <columnConstraints>
                         <ColumnConstraints />
                     </columnConstraints>
@@ -51,7 +51,7 @@
                         <RowConstraints />
                     </rowConstraints>
                     <HBox fx:id="itemsControls" alignment="BOTTOM_LEFT" styleClass="items-controls" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS">
-                        <Button fx:id="addItemButton" onMouseClicked="#onAddButtonClicked" text="+" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                        <Button fx:id="addItemButton" onMouseClicked="#onAddButtonClicked" text="+" GridPane.columnIndex="0" GridPane.rowIndex="1"  />
                         <Button fx:id="removeItemButton" onMouseClicked="#onRemoveButtonClicked" text="-" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                         <Button fx:id="refreshButton" onMouseClicked="#onRefreshButtonClicked" text="⟳" GridPane.columnIndex="2" GridPane.rowIndex="1" />
                     </HBox>

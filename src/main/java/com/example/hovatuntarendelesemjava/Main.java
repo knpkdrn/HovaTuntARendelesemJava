@@ -1,5 +1,6 @@
 package com.example.hovatuntarendelesemjava;
 
+import com.example.hovatuntarendelesemjava.model.Vehicle;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -18,7 +19,7 @@ public class Main extends Application {
         stage.setResizable(true);
         stage.show();
     }
-
+Vehicle car = new Vehicle();
     public static void main(String[] args) {
         launch();
     }
