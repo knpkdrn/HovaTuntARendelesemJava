@@ -1,6 +1,6 @@
 package com.example.hovatuntarendelesemjava.model;
 
-public class Customer {
+public class Customer implements HTARJModelBase {
     private int customerId;
     private String fullName;
     private String address;
@@ -8,6 +8,14 @@ public class Customer {
     private String emailAddress;
     private String password;
 
+    public Customer(String[] paramsList){
+        this.customerId = Integer.parseInt(paramsList[0]);
+        this.fullName = paramsList[1];
+        this.address = paramsList[2];
+        this.phoneNumber = paramsList[3];
+        this.emailAddress = paramsList[4];
+        this.password = paramsList[5];
+    }
     public int getCustomerId() {
         return customerId;
     }
@@ -44,5 +52,15 @@ public class Customer {
     }
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    @Override
+    public void setAllFields(String[] paramsList) {
+        this.customerId = Integer.parseInt(paramsList[0]);
+        this.fullName = paramsList[1];
+        this.address = paramsList[2];
+        this.phoneNumber = paramsList[3];
+        this.emailAddress = paramsList[4];
+        this.password = paramsList[5];
     }
 }

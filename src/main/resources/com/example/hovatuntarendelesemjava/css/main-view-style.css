@@ -31,52 +31,6 @@
     -fx-background-color: #1F0618;
 }
 
-/* client area */
-/*
-.tab-pane{
-    -fx-tab-max-height:100px;
-    -fx-background: transparent;
-
-}
-.tab-header-area{
-    -fx-padding: 0 10;
-    -fx-border-color: white;
-    -fx-border-width: 2 2 0 2;
-    -fx-border-radius: 10 10 0 0;
-
-}
-.tab-header-background{
-    -fx-background-color:transparent;
-}
-.headers-region{
-    -fx-text-fill: white;
-    -fx-padding: 10 0 0 0;
-}
-.tab{
-    -fx-background-color: #320A28;
-    -fx-background-radius:10;
-    -fx-focus-color: transparent;
-    -fx-faint-focus-color: transparent;
-    -fx-padding:10;
-}
-.tab:hover{
-    -fx-background-color: #440D36
-}
-.tab:selected{
-    -fx-background-color: #BA8F1A;
-}
-.tab-label{
-    -fx-font-size: 25;
-    -fx-text-fill: white;
-}
-.tab-content-area{
-    -fx-background-color: transparent;
-    -fx-border-color: white;
-    -fx-border-width: 0 2 2 2;
-    -fx-border-radius: 0 0 10 10;
-}
-*/
-
 .client-header{
     -fx-padding: 10;
     -fx-border-color: white;
@@ -101,15 +55,14 @@
     -fx-background: transparent;
     -fx-background-color: transparent;
     -fx-background-radius: 10;
-        -fx-border-color: white;
-        -fx-border-width: 0 2 2 2;
-        -fx-border-radius: 0 0 10 10;
+    -fx-border-color: white;
+    -fx-border-width: 0 2 2 2;
+    -fx-border-radius: 0 0 10 10;
 }
 .items-box{
     -fx-background-color: rgb(0,0,0,0.3);
 }
 .items-controls Button{
-
     -fx-background-color: transparent;
     -fx-background-radius: 10;
     -fx-text-fill: #FFEED6;
@@ -150,4 +103,10 @@
 }
 .items-record Label:pressed{
     -fx-background-color: rgb(0,0,0,0.2);
+}
+.table-row{
+    -fx-font-size: 30px;
+}
+.table-row:hover{
+    -fx-background-color:rgb(0,0,0,0.2);
 }

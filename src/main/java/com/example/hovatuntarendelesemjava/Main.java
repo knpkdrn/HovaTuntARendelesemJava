@@ -16,7 +16,7 @@ public class Main extends Application {
         stage.setTitle("Hello!");
         stage.setScene(scene);
         stage.setMaximized(true);
-        stage.setResizable(true);
+        stage.setResizable(false);
         stage.show();
     }
 Vehicle car = new Vehicle();

@@ -39,7 +39,7 @@
             <RadioButton fx:id="shipmentButton" onMouseClicked="#onShipmentButtonClicked" text="Shipment" />
             <RadioButton fx:id="customersButton" onMouseClicked="#onCustomersButtonClicked" text="Customers" />
         </HBox>
-        <ScrollPane fx:id="clientScrollPane" fitToHeight="true" fitToWidth="true" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS" hbarPolicy="ALWAYS">
+        <ScrollPane fx:id="clientScrollPane" fitToHeight="true" fitToWidth="true" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS">
             <content>
                 <GridPane fx:id="itemsGridPane" maxHeight="Infinity" maxWidth="Infinity" styleClass="items-box"  >
                     <columnConstraints>

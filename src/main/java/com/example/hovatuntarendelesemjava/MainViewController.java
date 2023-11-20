@@ -1,9 +1,6 @@
 package com.example.hovatuntarendelesemjava;
 
-import com.example.hovatuntarendelesemjava.model.Customer;
-import com.example.hovatuntarendelesemjava.model.Driver;
-import com.example.hovatuntarendelesemjava.model.Shipment;
-import com.example.hovatuntarendelesemjava.model.Vehicle;
+import com.example.hovatuntarendelesemjava.model.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -14,21 +11,15 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.stage.Stage;
+
+import java.util.regex.*;
 
 import java.io.IOException;
 import java.lang.reflect.Field;
 
 public class MainViewController extends Parent {
-
-    @FXML
-    private Button settingsButton;
-    @FXML
-    private Button logOutButton;
-    @FXML
-    private HBox clientHeader;
     @FXML
     private RadioButton vehiclesButton;
     @FXML
@@ -38,13 +29,7 @@ public class MainViewController extends Parent {
     @FXML
     private RadioButton customersButton;
     @FXML
-    private ScrollPane clientScrollPane;
-    @FXML
     private GridPane itemsGridPane;
-    @FXML
-    private HBox itemsHeader;
-    @FXML
-    private TableView itemsView;
 
     ObservableList<Vehicle> vehicleList = FXCollections.observableArrayList();
     ObservableList<Driver> driverList = FXCollections.observableArrayList();
@@ -54,23 +39,27 @@ public class MainViewController extends Parent {
     private TableView<Driver> driverTableView;
     private TableView<Shipment> shipmentTableView;
     private TableView<Customer> customerTableView;
-
     private static MainViewController instance;
-
-    public MainViewController() {
-
-    }
 
     public static MainViewController getInstance() {
         return instance;
     }
-    public RadioButton getVehiclesButton() {
-        return vehiclesButton;
-    }
+
     public ObservableList<Vehicle> getVehicleList() {
         return vehicleList;
     }
 
+    public ObservableList<Driver> getDriverList() {
+        return driverList;
+    }
+
+    public ObservableList<Shipment> getShipmentList() {
+        return shipmentList;
+    }
+
+    public ObservableList<Customer> getCustomerList() {
+        return customerList;
+    }
 
     @FXML
     void initialize() {
@@ -102,54 +91,52 @@ public class MainViewController extends Parent {
         instance = this;
     }
 
-    private void openNewWindow() throws IOException {
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("addPopup-view.fxml"));
-
-
-        Parent newWindowRoot = loader.load();
-
-        Stage newWindowStage = new Stage();
-        newWindowStage.setTitle("New Window");
-        newWindowStage.setScene(new Scene(newWindowRoot));
-
-        // Set the AddPopupController instance in the FXMLLoader
-        AddPopupController popupController = loader.getController();
-        // Pass any necessary data to the AddPopupController if needed
-
-        newWindowStage.show();
-    }
-
     @FXML
     private void onAddButtonClicked() throws IOException {
-        openNewWindow();
+        if (vehiclesButton.isSelected()) openNewWindow(Vehicle.class);
+        if (driversButton.isSelected()) openNewWindow(Driver.class);
+        if (customersButton.isSelected()) openNewWindow(Customer.class);
+        if (shipmentButton.isSelected()) openNewWindow(Shipment.class);
     }
 
     @FXML
     private void onRemoveButtonClicked() {
-        if (vehiclesButton.isSelected()) {
-            vehicleList.remove(vehicleList.size() - 1);
-        } else if (driversButton.isSelected()) {
-            driverList.remove(driverList.size() - 1);
+        if (vehiclesButton.isSelected() && !vehicleList.isEmpty()) {
+            vehicleList.remove(vehicleTableView.getSelectionModel().getSelectedIndex());
+            vehicleTableView.getSelectionModel().clearSelection();
+        } else if (driversButton.isSelected() && !driverList.isEmpty()) {
+            driverList.remove(driverTableView.getSelectionModel().getSelectedIndex());
+            driverTableView.getSelectionModel().clearSelection();
+        } else if (customersButton.isSelected() && !customerList.isEmpty()) {
+            customerList.remove(customerTableView.getSelectionModel().getSelectedIndex());
+            customerTableView.getSelectionModel().clearSelection();
+        } else if (shipmentButton.isSelected() && !shipmentList.isEmpty()) {
+            shipmentList.remove(shipmentTableView.getSelectionModel().getSelectedIndex());
+            shipmentTableView.getSelectionModel().clearSelection();
         }
     }
 
     @FXML
-    private void onRefreshButtonClicked() {
-        itemsGridPane.getChildren().remove(1);
+    private void onRefreshButtonClicked() throws IOException {
+        if (vehiclesButton.isSelected() && !vehicleList.isEmpty())
+            openNewWindow(vehicleList.get(vehicleTableView.getSelectionModel().getSelectedIndex()));
+        if (driversButton.isSelected() && !driverList.isEmpty())
+            openNewWindow(driverList.get(driverTableView.getSelectionModel().getSelectedIndex()));
+        if (customersButton.isSelected() && !customerList.isEmpty())
+            openNewWindow(customerList.get(customerTableView.getSelectionModel().getSelectedIndex()));
+        if (shipmentButton.isSelected() && !shipmentList.isEmpty())
+            openNewWindow(shipmentList.get(shipmentTableView.getSelectionModel().getSelectedIndex()));
+    }
 
+    public void refreshTable() {
         if (vehiclesButton.isSelected()) {
-            vehicleTableView = createTableView(vehicleList, Vehicle.class);
-            itemsGridPane.getChildren().add(vehicleTableView);
+            vehicleTableView.refresh();
         } else if (driversButton.isSelected()) {
-            driverTableView = createTableView(driverList, Driver.class);
-            itemsGridPane.getChildren().add(driverTableView);
+            driverTableView.refresh();
         } else if (shipmentButton.isSelected()) {
-            shipmentTableView = createTableView(shipmentList, Shipment.class);
-            itemsGridPane.getChildren().add(shipmentTableView);
+            shipmentTableView.refresh();
         } else if (customersButton.isSelected()) {
-            customerTableView = createTableView(customerList, Customer.class);
-            itemsGridPane.getChildren().add(customerTableView);
+            customerTableView.refresh();
         }
     }
 
@@ -180,11 +167,13 @@ public class MainViewController extends Parent {
     private <T> TableView<T> createTableView(ObservableList<T> obsList, Class<T> model) {
         TableView<T> tableView = new TableView<>(obsList);
         tableView.setItems(obsList);
+
         tableView.setRowFactory(tv -> {
             TableRow<T> row = new TableRow<>();
-            row.setStyle("-fx-font-size: 30px;");
+            row.getStyleClass().add("table-row");
             return row;
         });
+
         tableView.setPrefWidth(20);
         GridPane.setRowIndex(tableView, 0);
         GridPane.setHgrow(tableView, Priority.ALWAYS);
@@ -199,6 +188,43 @@ public class MainViewController extends Parent {
         }
 
         return tableView;
+    }
+
+
+    private void openNewWindow(Class objClass) throws IOException {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("addPopup-view.fxml"));
+
+        Parent newWindowRoot = loader.load();
+
+        Stage newWindowStage = new Stage();
+        newWindowStage.setTitle("New Window");
+        newWindowStage.setScene(new Scene(newWindowRoot));
+
+        // Set the AddPopupController instance in the FXMLLoader
+        AddPopupController popupController = loader.getController();
+        // Pass any necessary data to the AddPopupController if needed
+        popupController.setObjClass(objClass);
+
+        newWindowStage.show();
+    }
+
+    private void openNewWindow(HTARJModelBase editableObject) throws IOException {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("addPopup-view.fxml"));
+
+        Parent newWindowRoot = loader.load();
+
+        Stage newWindowStage = new Stage();
+        newWindowStage.setTitle("New Window");
+        newWindowStage.setScene(new Scene(newWindowRoot));
+
+        // Set the AddPopupController instance in the FXMLLoader
+        AddPopupController popupController = loader.getController();
+        // Pass any necessary data to the AddPopupController if needed
+        popupController.setEditableObject(editableObject);
+
+        newWindowStage.show();
     }
 
     @Override

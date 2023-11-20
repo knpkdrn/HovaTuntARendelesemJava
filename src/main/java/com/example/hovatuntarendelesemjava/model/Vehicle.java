@@ -1,6 +1,6 @@
 package com.example.hovatuntarendelesemjava.model;
 
-public class Vehicle {
+public class Vehicle implements HTARJModelBase {
 
     private String licensePlate;
     private String make;
@@ -19,6 +19,26 @@ public class Vehicle {
     private Integer driverId; // This can be null, so use the Integer class
     private Integer shipmentId; // This can be null, so use the Integer class
     private String vehicleStatus;
+
+    public Vehicle(String[] paramsList) {
+        this.licensePlate = paramsList[0];
+        this.make = paramsList[1];
+        this.model = paramsList[2];
+        this.prodYear = Integer.parseInt(paramsList[3]);
+        this.cost = Double.parseDouble(paramsList[4]);
+        this.maxFuelInLiter = Integer.parseInt(paramsList[5]);
+        this.lastRefuelling = paramsList[6];
+        this.lastRefuellingCost = Integer.parseInt(paramsList[7]);
+        this.capacity = Integer.parseInt(paramsList[8]);
+        this.maintenanceInterval = Integer.parseInt(paramsList[9]);
+        this.lastMaintenance = paramsList[10];
+        this.nextMaintenance = paramsList[11];
+        this.doneDistance = Double.parseDouble(paramsList[12]);
+        this.avgConsumption = Double.parseDouble(paramsList[13]);
+        this.driverId = Integer.parseInt(paramsList[14]);
+        this.shipmentId = Integer.parseInt(paramsList[15]);
+        this.vehicleStatus = paramsList[16];
+    }
 
     public Vehicle() {
         setLicensePlate("AAA000");
@@ -174,5 +194,26 @@ public class Vehicle {
 
     public void setVehicleStatus(String vehicleStatus) {
         this.vehicleStatus = vehicleStatus;
+    }
+
+    @Override
+    public void setAllFields(String[] paramsList) {
+        this.licensePlate = paramsList[0];
+        this.make = paramsList[1];
+        this.model = paramsList[2];
+        this.prodYear = Integer.parseInt(paramsList[3]);
+        this.cost = Double.parseDouble(paramsList[4]);
+        this.maxFuelInLiter = Integer.parseInt(paramsList[5]);
+        this.lastRefuelling = paramsList[6];
+        this.lastRefuellingCost = Integer.parseInt(paramsList[7]);
+        this.capacity = Integer.parseInt(paramsList[8]);
+        this.maintenanceInterval = Integer.parseInt(paramsList[9]);
+        this.lastMaintenance = paramsList[10];
+        this.nextMaintenance = paramsList[11];
+        this.doneDistance = Double.parseDouble(paramsList[12]);
+        this.avgConsumption = Double.parseDouble(paramsList[13]);
+        this.driverId = Integer.parseInt(paramsList[14]);
+        this.shipmentId = Integer.parseInt(paramsList[15]);
+        this.vehicleStatus = paramsList[16];
     }
 }

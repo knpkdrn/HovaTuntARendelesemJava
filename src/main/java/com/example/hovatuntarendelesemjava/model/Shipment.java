@@ -1,6 +1,6 @@
 package com.example.hovatuntarendelesemjava.model;
 
-public class Shipment {
+public class Shipment implements HTARJModelBase {
     private int shipmentId;
     private int customerId;
     private String startTime;
@@ -8,6 +8,15 @@ public class Shipment {
     private String origin;
     private String destination;
     private String shipmentStatus;
+    public Shipment(String[] paramsList){
+        this.shipmentId = Integer.parseInt(paramsList[0]);
+        this.customerId = Integer.parseInt(paramsList[1]);
+        this.startTime = paramsList[2];
+        this.endTime = paramsList[3];
+        this.origin = paramsList[4];
+        this.destination = paramsList[5];
+        this.shipmentStatus = paramsList[6];
+    }
 
     public int getShipmentId() {
         return shipmentId;
@@ -51,5 +60,16 @@ public class Shipment {
     }
     public void setShipmentStatus(String shipmentStatus) {
         this.shipmentStatus = shipmentStatus;
+    }
+
+    @Override
+    public void setAllFields(String[] paramsList) {
+        this.shipmentId = Integer.parseInt(paramsList[0]);
+        this.customerId = Integer.parseInt(paramsList[1]);
+        this.startTime = paramsList[2];
+        this.endTime = paramsList[3];
+        this.origin = paramsList[4];
+        this.destination = paramsList[5];
+        this.shipmentStatus = paramsList[6];
     }
 }
