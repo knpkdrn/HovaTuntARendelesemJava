@@ -1,4 +1,4 @@
-package com.example.hovatuntarendelesemjava.controllers;
+package com.example.hovatuntarendelesemjava;
 
 import com.example.hovatuntarendelesemjava.model.*;
 import javafx.fxml.FXML;

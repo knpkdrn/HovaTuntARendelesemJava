@@ -29,14 +29,14 @@ public class VehicleHandler {
         String json = gson.toJson(object);
 
         if(object instanceof Vehicle) {
-            HttpRequest request = HttpRequest.newBuilder()
+            request = HttpRequest.newBuilder()
                     .uri(URI.create(uriBase + "/api/vehicles"))
                     .header("Content-Type", "application/json")
                     .POST(HttpRequest.BodyPublishers.ofString(json))
                     .build();
 
         }else if (object instanceof Driver) {
-            HttpRequest request = HttpRequest.newBuilder()
+            request = HttpRequest.newBuilder()
                     .uri(URI.create(uriBase + "/api/drivers"))
                     .header("Content-Type", "application/json")
                     .POST(HttpRequest.BodyPublishers.ofString(json))
@@ -59,27 +59,27 @@ public class VehicleHandler {
 
         if(object instanceof Vehicle vehicle) {
 
-            HttpRequest request = HttpRequest.newBuilder()
+            request = HttpRequest.newBuilder()
                     .uri(URI.create(uriBase + "/api/vehicles/licensePlate/" + vehicle.getLicensePlate()))
                     .header("Content-Type", "application/json")
                     .GET()
                     .build();
 
         }else if (object instanceof Driver driver) {
-            HttpRequest request = HttpRequest.newBuilder()
+            request = HttpRequest.newBuilder()
                     .uri(URI.create(uriBase + "/api/drivers/driverId/" + driver.getDriverID()))
                     .header("Content-Type", "application/json")
                     .GET()
                     .build();
         } else if (object instanceof Customer customer){
 
-            HttpRequest request = HttpRequest.newBuilder()
+            request = HttpRequest.newBuilder()
                     .uri(URI.create(uriBase + "/api/customers/customerId/" + customer.getCustomerId()))
                     .header("Content-Type", "application/json")
                     .GET()
                     .build();
         } else if (object instanceof Shipment shipment){
-            HttpRequest request = HttpRequest.newBuilder()
+            request = HttpRequest.newBuilder()
                     .uri(URI.create(uriBase + "/api/shipments/shipmentId/" + shipment.getShipmentId()))
                     .header("Content-Type", "application/json")
                     .GET()
@@ -99,27 +99,27 @@ public class VehicleHandler {
 
         if(type == Vehicle.class) {
 
-            HttpRequest request = HttpRequest.newBuilder()
+            request = HttpRequest.newBuilder()
                     .uri(URI.create(uriBase + "/api/vehicles/getAll"))
                     .header("Content-Type", "application/json")
                     .GET()
                     .build();
 
         }else if (type == Driver.class) {
-            HttpRequest request = HttpRequest.newBuilder()
+            request = HttpRequest.newBuilder()
                     .uri(URI.create(uriBase + "/api/drivers/getAll"))
                     .header("Content-Type", "application/json")
                     .GET()
                     .build();
         } else if (type == Customer.class){
 
-            HttpRequest request = HttpRequest.newBuilder()
+            request = HttpRequest.newBuilder()
                     .uri(URI.create(uriBase + "/api/customers/getAll"))
                     .header("Content-Type", "application/json")
                     .GET()
                     .build();
         } else if (type == Shipment.class){
-            HttpRequest request = HttpRequest.newBuilder()
+            request = HttpRequest.newBuilder()
                     .uri(URI.create(uriBase + "/api/shipments/getAll"))
                     .header("Content-Type", "application/json")
                     .GET()
@@ -157,27 +157,27 @@ public class VehicleHandler {
 
         if(object instanceof Vehicle vehicle) {
 
-            HttpRequest request = HttpRequest.newBuilder()
+            request = HttpRequest.newBuilder()
                     .uri(URI.create(uriBase + "/api/vehicles/licensePlate/" + vehicle.getLicensePlate()))
                     .header("Content-Type", "application/json")
                     .DELETE()
                     .build();
 
         } else if (object instanceof Driver driver) {
-            HttpRequest request = HttpRequest.newBuilder()
+            request = HttpRequest.newBuilder()
                     .uri(URI.create(uriBase + "/api/drivers/driverID/" + driver.getDriverID()))
                     .header("Content-Type", "application/json")
                     .DELETE()
                     .build();
         } else if (object instanceof Customer customer){
 
-            HttpRequest request = HttpRequest.newBuilder()
+            request = HttpRequest.newBuilder()
                     .uri(URI.create(uriBase + "/api/customers/customerId/" + customer.getCustomerId()))
                     .header("Content-Type", "application/json")
                     .DELETE()
                     .build();
         } else if (object instanceof Shipment shipment){
-            HttpRequest request = HttpRequest.newBuilder()
+            request = HttpRequest.newBuilder()
                     .uri(URI.create(uriBase + "/api/shipments/shipmentId/" + shipment.getShipmentId()))
                     .header("Content-Type", "application/json")
                     .DELETE()
@@ -197,27 +197,27 @@ public class VehicleHandler {
 
         if(object instanceof Vehicle vehicle) {
 
-            HttpRequest request = HttpRequest.newBuilder()
+            request = HttpRequest.newBuilder()
                     .uri(URI.create(uriBase + "/api/vehicles/deleteAll"))
                     .header("Content-Type", "application/json")
                     .DELETE()
                     .build();
 
         } else if (object instanceof Driver driver) {
-            HttpRequest request = HttpRequest.newBuilder()
+            request = HttpRequest.newBuilder()
                     .uri(URI.create(uriBase + "/api/drivers/deleteAll"))
                     .header("Content-Type", "application/json")
                     .DELETE()
                     .build();
         } else if (object instanceof Customer customer){
 
-            HttpRequest request = HttpRequest.newBuilder()
+            request = HttpRequest.newBuilder()
                     .uri(URI.create(uriBase + "/api/customers/deleteAll"))
                     .header("Content-Type", "application/json")
                     .DELETE()
                     .build();
         } else if (object instanceof Shipment shipment){
-            HttpRequest request = HttpRequest.newBuilder()
+            request = HttpRequest.newBuilder()
                     .uri(URI.create(uriBase + "/api/shipments/deleteAll/"))
                     .header("Content-Type", "application/json")
                     .DELETE()

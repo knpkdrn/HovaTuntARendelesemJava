@@ -1,6 +1,6 @@
 package com.example.hovatuntarendelesemjava.apihandler;
 
-import com.example.hovatuntarendelesemjava.controllers.MainViewController;
+import com.example.hovatuntarendelesemjava.MainViewController;
 import com.example.hovatuntarendelesemjava.model.Driver;
 
 public class DriverHandler {

@@ -1,5 +1,5 @@
 // AddPopupController.java
-package com.example.hovatuntarendelesemjava.controllers;
+package com.example.hovatuntarendelesemjava;
 
 import com.example.hovatuntarendelesemjava.model.*;
 import com.example.hovatuntarendelesemjava.apihandler.DriverHandler;

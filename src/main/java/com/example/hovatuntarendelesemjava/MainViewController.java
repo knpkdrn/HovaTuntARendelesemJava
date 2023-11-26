@@ -1,4 +1,4 @@
-package com.example.hovatuntarendelesemjava.controllers;
+package com.example.hovatuntarendelesemjava;
 
 import com.example.hovatuntarendelesemjava.apihandler.VehicleHandler;
 import com.example.hovatuntarendelesemjava.model.*;
@@ -112,7 +112,7 @@ public class MainViewController extends Parent {
 
         instance = this;
 
-        reloadTableData();
+        // reloadTableData();
 
         Platform.runLater(() -> {
             System.out.println(user.getEmail() + " " + user.getPassword() + " " + user.getAdmin());
