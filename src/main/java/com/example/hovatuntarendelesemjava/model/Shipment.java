@@ -1,5 +1,7 @@
 package com.example.hovatuntarendelesemjava.model;
 
+import com.example.hovatuntarendelesemjava.model.base.HTARJModelBase;
+
 public class Shipment implements HTARJModelBase {
     private int shipmentId;
     private int customerId;

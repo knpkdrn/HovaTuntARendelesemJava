@@ -13,14 +13,13 @@
         <columnConstraints>
             <ColumnConstraints halignment="LEFT" />
             <ColumnConstraints halignment="CENTER" maxWidth="150" />
-            <ColumnConstraints halignment="CENTER" maxWidth="150" />
+            <ColumnConstraints halignment="CENTER" />
 
         </columnConstraints>
 
         <Text text="HovaTuntARendelesemJava?" GridPane.hgrow="ALWAYS" />
 
-        <Button fx:id="settingsButton" maxHeight="Infinity" maxWidth="Infinity" text="SETTINGS" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" />
-        <Button fx:id="logOutButton" maxHeight="Infinity" maxWidth="Infinity" text="LOG OUT" GridPane.columnIndex="2" GridPane.hgrow="ALWAYS" />
+        <Button fx:id="logOutButton" maxHeight="Infinity" onMouseClicked="#logOutButtonOnMouseClicked" onMouseEntered="#logOutButtonOnMouseEntered" onMouseExited="#logOutButtonOnMouseExited" text="LOG OUT" GridPane.columnIndex="2" />
 
     </GridPane>
     <!-- Client area-->
@@ -41,7 +40,7 @@
         </HBox>
         <ScrollPane fx:id="clientScrollPane" fitToHeight="true" fitToWidth="true" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS">
             <content>
-                <GridPane fx:id="itemsGridPane" maxHeight="Infinity" maxWidth="Infinity" styleClass="items-box"  >
+                <GridPane fx:id="itemsGridPane" maxHeight="Infinity" maxWidth="Infinity" styleClass="items-box">
                     <columnConstraints>
                         <ColumnConstraints />
                     </columnConstraints>
@@ -51,7 +50,7 @@
                         <RowConstraints />
                     </rowConstraints>
                     <HBox fx:id="itemsControls" alignment="BOTTOM_LEFT" styleClass="items-controls" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS">
-                        <Button fx:id="addItemButton" onMouseClicked="#onAddButtonClicked" text="+" GridPane.columnIndex="0" GridPane.rowIndex="1"  />
+                        <Button fx:id="addItemButton" onMouseClicked="#onAddButtonClicked" text="+" GridPane.columnIndex="0" GridPane.rowIndex="1" />
                         <Button fx:id="removeItemButton" onMouseClicked="#onRemoveButtonClicked" text="-" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                         <Button fx:id="refreshButton" onMouseClicked="#onRefreshButtonClicked" text="⟳" GridPane.columnIndex="2" GridPane.rowIndex="1" />
                     </HBox>

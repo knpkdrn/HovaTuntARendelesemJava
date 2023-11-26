@@ -1,0 +1,32 @@
+.main-pane{
+    -fx-alignment: CENTER;
+    -fx-background-color: #1F3333;
+}
+.main-pane *{
+    -fx-padding:20;
+    -fx-background-insets: 10;
+    -fx-pref-width: 250;
+}
+.user-input-field{
+    -fx-opacity:0.6;
+
+}
+.main-pane Label{
+    -fx-text-fill: #FFEED6;
+    -fx-font-size: 22px;
+    -fx-font-weight: bold;
+    -fx-font-style: italic;
+    -fx-text-alignment: CENTER;
+}
+.log-in-button{
+        -fx-text-fill: #CAD2C5;
+        -fx-background-color: #320A28;
+        -fx-font-size: 20px;
+        -fx-font-style: italic;
+}
+.log-in-button:hover{
+    -fx-background-color: #440D36;
+}
+.log-in-button:pressed{
+    -fx-background-color: #1F0618;
+}

@@ -2,6 +2,7 @@
 package com.example.hovatuntarendelesemjava;
 
 import com.example.hovatuntarendelesemjava.model.*;
+import com.example.hovatuntarendelesemjava.model.base.HTARJModelBase;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
@@ -12,11 +13,10 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 
-
 public class AddPopupController {
-    private Class objClass;
+    private Class<?> objClass;
     private HTARJModelBase editableObject;
-    private ArrayList<TextField> textFieldList = new ArrayList<>();
+    private final ArrayList<TextField> textFieldList = new ArrayList<>();
 
     @FXML
     private VBox fieldsVBox;
@@ -30,28 +30,89 @@ public class AddPopupController {
                         System.out.println("ADDING");
                         textFieldList.clear();
                         for (Field f : objClass.getDeclaredFields()) {
-                            TextField textField = new TextField();
-                            textField.setPromptText(f.getName());
-                            fieldsVBox.getChildren().add(textField);
-                            textFieldList.add(textField);
+                            if (f.getType() == String.class){
+                                TextField textField = new TextField();
+                                textField.setPromptText(MainViewController.convertToColumnName(f.getName()));
+                                fieldsVBox.getChildren().add(textField);
+                                textFieldList.add(textField);
+                            }
+                            if (f.getType() == int.class || f.getType() == Integer.class){
+                                TextField textField = new TextField();
+                                textField.textProperty().addListener((observable, oldValue, newValue) -> {
+                                    if (!newValue.matches("\\d*")) {
+                                        textField.setText(newValue.replaceAll("[^\\d]", ""));
+                                    }
+                                });
+                                textField.setPromptText(MainViewController.convertToColumnName(f.getName()));
+                                fieldsVBox.getChildren().add(textField);
+                                textFieldList.add(textField);
+                            }
+                            if (f.getType() == Double.class){
+                                TextField textField = new TextField();
+                                textField.textProperty().addListener((observable, oldValue, newValue) -> {
+                                    if (!newValue.matches("\\d*")) {
+                                        textField.setText(newValue.replaceAll("[^\\d]", ""));
+                                    }
+                                });
+                                textField.setPromptText(MainViewController.convertToColumnName(f.getName()));
+                                fieldsVBox.getChildren().add(textField);
+                                textFieldList.add(textField);
+                            }
                         }
                     } else {
                         //DEBUG MESSAGE
                         System.out.println("EDITING");
                         textFieldList.clear();
                         for (Field f : editableObject.getClass().getDeclaredFields()) {
-                            TextField textField = new TextField();
-                            textField.setPromptText(f.getName());
-                            String getterName = "get" + f.getName().substring(0, 1).toUpperCase() + f.getName().substring(1);
-                            try {
-                                Method getter = editableObject.getClass().getDeclaredMethod(getterName);
-                                textField.setText(getter.invoke(editableObject).toString());
-                            } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException nsme) {
-                                System.out.println(nsme.getMessage());
+                            if (f.getType() == String.class){
+                                TextField textField = new TextField();
+                                textField.setPromptText(MainViewController.convertToColumnName(f.getName()));
+                                String getterName = "get" + f.getName().substring(0, 1).toUpperCase() + f.getName().substring(1);
+                                try {
+                                    Method getter = editableObject.getClass().getDeclaredMethod(getterName);
+                                    textField.setText(getter.invoke(editableObject).toString());
+                                } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException nsme) {
+                                    System.out.println(nsme.getMessage());
+                                }
+                                fieldsVBox.getChildren().add(textField);
+                                textFieldList.add(textField);
                             }
-
-                            fieldsVBox.getChildren().add(textField);
-                            textFieldList.add(textField);
+                            if (f.getType() == int.class || f.getType() == Integer.class){
+                                TextField textField = new TextField();
+                                textField.textProperty().addListener((observable, oldValue, newValue) -> {
+                                    if (!newValue.matches("\\d*")) {
+                                        textField.setText(newValue.replaceAll("[^\\d]", ""));
+                                    }
+                                });
+                                textField.setPromptText(MainViewController.convertToColumnName(f.getName()));
+                                String getterName = "get" + f.getName().substring(0, 1).toUpperCase() + f.getName().substring(1);
+                                try {
+                                    Method getter = editableObject.getClass().getDeclaredMethod(getterName);
+                                    textField.setText(getter.invoke(editableObject).toString());
+                                } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException nsme) {
+                                    System.out.println(nsme.getMessage());
+                                }
+                                fieldsVBox.getChildren().add(textField);
+                                textFieldList.add(textField);
+                            }
+                            if (f.getType() == Double.class){
+                                TextField textField = new TextField();
+                                textField.textProperty().addListener((observable, oldValue, newValue) -> {
+                                    if (!newValue.matches("\\d*")) {
+                                        textField.setText(newValue.replaceAll("[^\\d]", ""));
+                                    }
+                                });
+                                textField.setPromptText(MainViewController.convertToColumnName(f.getName()));
+                                String getterName = "get" + f.getName().substring(0, 1).toUpperCase() + f.getName().substring(1);
+                                try {
+                                    Method getter = editableObject.getClass().getDeclaredMethod(getterName);
+                                    textField.setText(getter.invoke(editableObject).toString());
+                                } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException nsme) {
+                                    System.out.println(nsme.getMessage());
+                                }
+                                fieldsVBox.getChildren().add(textField);
+                                textFieldList.add(textField);
+                            }
                         }
                     }
                 }
@@ -59,7 +120,7 @@ public class AddPopupController {
     }
 
     // Add more fields for other attributes
-    public void setObjClass(Class objClass) {
+    public void setObjClass(Class<?> objClass) {
         this.objClass = objClass;
         editableObject = null;
     }

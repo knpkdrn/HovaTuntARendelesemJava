@@ -1,6 +1,8 @@
 package com.example.hovatuntarendelesemjava;
 
 import com.example.hovatuntarendelesemjava.model.*;
+import com.example.hovatuntarendelesemjava.model.base.HTARJModelBase;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -11,15 +13,28 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.stage.Stage;
 
-import java.util.regex.*;
-
 import java.io.IOException;
 import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class MainViewController extends Parent {
+    @FXML
+    public Button logOutButton;
+    @FXML
+    public Button addItemButton;
+    @FXML
+    public Button removeItemButton;
+    @FXML
+    public Button refreshButton;
+    @FXML
+    public HBox clientHeader;
     @FXML
     private RadioButton vehiclesButton;
     @FXML
@@ -40,6 +55,15 @@ public class MainViewController extends Parent {
     private TableView<Shipment> shipmentTableView;
     private TableView<Customer> customerTableView;
     private static MainViewController instance;
+    private User user;
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 
     public static MainViewController getInstance() {
         return instance;
@@ -68,11 +92,13 @@ public class MainViewController extends Parent {
         vehiclesButton.setToggleGroup(toggleGroup);
         vehiclesButton.getStyleClass().remove("radio-button");
         vehiclesButton.getStyleClass().add("toggle-button");
-        vehiclesButton.setSelected(true);
+        // Remove vehicles button from the view
+        clientHeader.getChildren().remove(vehiclesButton);
 
         driversButton.setToggleGroup(toggleGroup);
         driversButton.getStyleClass().remove("radio-button");
         driversButton.getStyleClass().add("toggle-button");
+        driversButton.setSelected(true);
 
         shipmentButton.setToggleGroup(toggleGroup);
         shipmentButton.getStyleClass().remove("radio-button");
@@ -86,9 +112,16 @@ public class MainViewController extends Parent {
         driverTableView = createTableView(driverList, Driver.class);
         shipmentTableView = createTableView(shipmentList, Shipment.class);
         customerTableView = createTableView(customerList, Customer.class);
-        itemsGridPane.getChildren().add(vehicleTableView);
+        itemsGridPane.getChildren().add(driverTableView);
 
         instance = this;
+
+        Platform.runLater(() -> {
+            System.out.println(user.getEmail() + " " + user.getPassword() + " " + user.getAdmin());
+            logOutButton.setText(user.getEmail());
+            double prfWdth = logOutButton.prefWidth(-1);
+            logOutButton.setMinWidth(prfWdth);
+        });
     }
 
     @FXML
@@ -163,6 +196,21 @@ public class MainViewController extends Parent {
         itemsGridPane.getChildren().remove(1);
         itemsGridPane.getChildren().add(customerTableView);
     }
+    @FXML
+    public void logOutButtonOnMouseClicked() {
+        Stage loginVw = new Stage();
+        loginVw.setScene(LoginViewController.getInstance().logInButton.getScene());
+        this.logOutButton.getScene().getWindow().hide();
+        loginVw.show();
+    }
+    @FXML
+    public void logOutButtonOnMouseExited() {
+        logOutButton.setText(user.getEmail());
+    }
+    @FXML
+    public void logOutButtonOnMouseEntered() {
+        logOutButton.setText("LOG OUT");
+    }
 
     private <T> TableView<T> createTableView(ObservableList<T> obsList, Class<T> model) {
         TableView<T> tableView = new TableView<>(obsList);
@@ -182,16 +230,24 @@ public class MainViewController extends Parent {
 
         for (Field f : model.getDeclaredFields()) {
             String pName = f.getName();
-            TableColumn<T, String> tableColumn = new TableColumn<>(pName);
+            convertToColumnName(pName);
+            TableColumn<T, String> tableColumn = new TableColumn<>(convertToColumnName(pName));
             tableColumn.setCellValueFactory(new PropertyValueFactory<>(pName));
             tableView.getColumns().add(tableColumn);
         }
 
         return tableView;
     }
-
-
-    private void openNewWindow(Class objClass) throws IOException {
+    public static String convertToColumnName(String fieldName){
+        String[] words = fieldName.split("(?=\\p{Upper})");
+        StringBuilder result = new StringBuilder();
+        for (int i = 0; i < words.length; ++i){
+            result.append(words[i]).append(" ");
+        }
+        result.replace(0,1, result.substring(0,1).toUpperCase());
+        return result.toString();
+    }
+    private void openNewWindow(Class<?> objClass) throws IOException {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("addPopup-view.fxml"));
 
@@ -225,10 +281,5 @@ public class MainViewController extends Parent {
         popupController.setEditableObject(editableObject);
 
         newWindowStage.show();
-    }
-
-    @Override
-    public Node getStyleableNode() {
-        return super.getStyleableNode();
     }
 }

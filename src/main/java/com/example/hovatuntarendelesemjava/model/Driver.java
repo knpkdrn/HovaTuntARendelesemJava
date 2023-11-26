@@ -1,7 +1,8 @@
 package com.example.hovatuntarendelesemjava.model;
 
-public class Driver implements HTARJModelBase {
+import com.example.hovatuntarendelesemjava.model.base.HTARJModelBase;
 
+public class Driver implements HTARJModelBase {
     public Driver() {
         setDriverID(1);
         setFirstName("Varga");

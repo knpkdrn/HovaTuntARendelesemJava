@@ -10,7 +10,7 @@ import com.google.gson.Gson;
 
 public class VehicleHandler {
     public static void sendPostRequest(){
-        HttpClient httpClient = HttpClient.newHttpClient();
+        /*HttpClient httpClient = HttpClient.newHttpClient();
         Vehicle vehicle = new Vehicle();
 
 
@@ -25,6 +25,7 @@ public class VehicleHandler {
 
         CompletableFuture<HttpResponse<String>> response = httpClient.sendAsync(request, HttpResponse.BodyHandlers.ofString());
 
-        response.thenApply(HttpResponse::body).thenAccept(System.out::println).join();
+        response.thenApply(HttpResponse::body).thenAccept(System.out::println).join();*/
+
     }
 }
