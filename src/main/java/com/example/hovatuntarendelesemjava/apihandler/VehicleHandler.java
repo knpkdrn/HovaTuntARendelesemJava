@@ -22,7 +22,7 @@ import java.util.concurrent.ExecutionException;
 public class VehicleHandler {
 
     private static HttpRequest request;
-    private static final String uriBase = "https://ab3a-84-3-207-209.ngrok.io";
+    private static final String uriBase = "http://localhost:8080";
 
     public static void sendPostRequest(Object object){
         HttpClient httpClient = HttpClient.newHttpClient();

@@ -8,7 +8,6 @@ public class Customer implements HTARJModelBase {
     private String address;
     private String phoneNumber;
     private String emailAddress;
-    private String password;
 
     public Customer(String[] paramsList){
         this.customerId = Integer.parseInt(paramsList[0]);
@@ -16,7 +15,6 @@ public class Customer implements HTARJModelBase {
         this.address = paramsList[2];
         this.phoneNumber = paramsList[3];
         this.emailAddress = paramsList[4];
-        this.password = paramsList[5];
     }
     public int getCustomerId() {
         return customerId;
@@ -32,9 +30,6 @@ public class Customer implements HTARJModelBase {
     }
     public String getEmailAddress() {
         return emailAddress;
-    }
-    public String getPassword() {
-        return password;
     }
 
     public void setCustomerId(int customerId) {
@@ -52,9 +47,6 @@ public class Customer implements HTARJModelBase {
     public void setEmailAddress(String emailAddress) {
         this.emailAddress = emailAddress;
     }
-    public void setPassword(String password) {
-        this.password = password;
-    }
 
     @Override
     public void setAllFields(String[] paramsList) {
@@ -63,6 +55,5 @@ public class Customer implements HTARJModelBase {
         this.address = paramsList[2];
         this.phoneNumber = paramsList[3];
         this.emailAddress = paramsList[4];
-        this.password = paramsList[5];
     }
 }

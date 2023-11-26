@@ -36,7 +36,7 @@ public class LoginViewController {
         // Check if the text fields are empty
         if(!Objects.equals(userIdField.getText(), "") && !Objects.equals(passwordField.getText(), "")) {
             if (validateEmail(userIdField.getText())){
-                User user = new User(new String[]{userIdField.getText(), passwordField.getText(), "true"});
+                User user = new User(new String[]{userIdField.getText(), "asd", passwordField.getText(), "true"});
                 openMainWindow(user);
             }
             else {

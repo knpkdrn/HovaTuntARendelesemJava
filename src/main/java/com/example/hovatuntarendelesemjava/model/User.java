@@ -8,6 +8,7 @@ import java.util.Objects;
 public class User implements HTARJModelBase {
 
     private String email;
+    private String username;
     private String password;
     private Boolean isAdmin;
 
@@ -79,5 +80,13 @@ public class User implements HTARJModelBase {
             }
         }
         else System.out.println("paramsList.length != fieldList.length");
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 }
