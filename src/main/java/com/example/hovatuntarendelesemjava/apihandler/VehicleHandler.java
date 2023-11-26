@@ -1,5 +1,6 @@
 package com.example.hovatuntarendelesemjava.apihandler;
 
+import com.example.hovatuntarendelesemjava.Main;
 import com.example.hovatuntarendelesemjava.model.Customer;
 import com.example.hovatuntarendelesemjava.model.Driver;
 import com.example.hovatuntarendelesemjava.model.Shipment;
@@ -21,34 +22,43 @@ import java.util.concurrent.ExecutionException;
 public class VehicleHandler {
 
     private static HttpRequest request;
-    private static final String uriBase = "http://localhost:8081";
+    private static final String uriBase = "https://ab3a-84-3-207-209.ngrok.io";
 
     public static void sendPostRequest(Object object){
         HttpClient httpClient = HttpClient.newHttpClient();
         Gson gson = new Gson();
-        String json = gson.toJson(object);
+        String json;
 
-        if(object instanceof Vehicle) {
+
+        if(object instanceof Vehicle vehicle) {
+            json = gson.toJson(vehicle);
             request = HttpRequest.newBuilder()
                     .uri(URI.create(uriBase + "/api/vehicles"))
                     .header("Content-Type", "application/json")
                     .POST(HttpRequest.BodyPublishers.ofString(json))
                     .build();
 
-        }else if (object instanceof Driver) {
+        } else if (object instanceof Driver driver) {
+            json = gson.toJson(driver);
             request = HttpRequest.newBuilder()
                     .uri(URI.create(uriBase + "/api/drivers"))
                     .header("Content-Type", "application/json")
                     .POST(HttpRequest.BodyPublishers.ofString(json))
                     .build();
-        } else {
-
+        } else if (object instanceof Shipment shipment) {
+            json = gson.toJson(shipment);
+            request = HttpRequest.newBuilder()
+                    .uri(URI.create(uriBase + "/api/shipments"))
+                    .header("Content-Type", "application/json")
+                    .POST(HttpRequest.BodyPublishers.ofString(json))
+                    .build();
         }
 
 
         CompletableFuture<HttpResponse<String>> response = httpClient.sendAsync(request, HttpResponse.BodyHandlers.ofString());
 
         response.thenApply(HttpResponse::body).thenAccept(System.out::println).join();
+
 
     }
 
@@ -134,13 +144,13 @@ public class VehicleHandler {
         String responseBody = response.get().body();
         List<T> resultList = new ArrayList<>();
         if(type == Vehicle.class) {
-            TypeToken<List<Vehicle>> token = new TypeToken<>(){};
+            TypeToken<List<Vehicle>> token = new TypeToken<>() {};
             resultList = gson.fromJson(responseBody, token.getType());
         }else if (type == Driver.class) {
-            TypeToken<List<Driver>> token = new TypeToken<>(){};
+            TypeToken<List<Driver>> token = new TypeToken<>() {};
             resultList = gson.fromJson(responseBody, token.getType());
         } else if (type == Shipment.class){
-            TypeToken<List<Shipment>> token = new TypeToken<>(){};
+            TypeToken<List<Shipment>> token = new TypeToken<>() {};
             resultList = gson.fromJson(responseBody, token.getType());
         } else {
             TypeToken<List<Customer>> token = new TypeToken<>(){};

@@ -112,7 +112,7 @@ public class MainViewController extends Parent {
 
         instance = this;
 
-        // reloadTableData();
+        reloadTableData();
 
         Platform.runLater(() -> {
             System.out.println(user.getEmail() + " " + user.getPassword() + " " + user.getAdmin());
@@ -175,24 +175,36 @@ public class MainViewController extends Parent {
     private void onVehiclesButtonClicked() {
         itemsGridPane.getChildren().remove(1);
         itemsGridPane.getChildren().add(vehicleTableView);
+        addItemButton.setDisable(false);
+        removeItemButton.setDisable(false);
+        refreshButton.setDisable(false);
     }
 
     @FXML
     private void onDriversButtonClicked() {
         itemsGridPane.getChildren().remove(1);
         itemsGridPane.getChildren().add(driverTableView);
+        addItemButton.setDisable(false);
+        removeItemButton.setDisable(false);
+        refreshButton.setDisable(false);
     }
 
     @FXML
     private void onShipmentButtonClicked() {
         itemsGridPane.getChildren().remove(1);
         itemsGridPane.getChildren().add(shipmentTableView);
+        addItemButton.setDisable(false);
+        removeItemButton.setDisable(false);
+        refreshButton.setDisable(false);
     }
 
     @FXML
     private void onCustomersButtonClicked() {
         itemsGridPane.getChildren().remove(1);
         itemsGridPane.getChildren().add(customerTableView);
+        addItemButton.setDisable(true);
+        removeItemButton.setDisable(true);
+        refreshButton.setDisable(true);
     }
     @FXML
     public void logOutButtonOnMouseClicked() {
@@ -283,16 +295,23 @@ public class MainViewController extends Parent {
         newWindowStage.show();
     }
 
-    private void reloadTableData() throws ExecutionException, InterruptedException {
+    public void reloadTableData() throws ExecutionException, InterruptedException {
         List<Vehicle> listVehicle = VehicleHandler.sendGetAllRequest(Vehicle.class);
         List<Driver> listDriver = VehicleHandler.sendGetAllRequest(Driver.class);
         List<Shipment> listShipment = VehicleHandler.sendGetAllRequest(Shipment.class);
         List<Customer> listCustomer = VehicleHandler.sendGetAllRequest(Customer.class);
 
+        vehicleList.clear();
         vehicleList.addAll(listVehicle);
-        /*driverList.addAll(listDriver);
+
+        driverList.clear();
+        driverList.addAll(listDriver);
+
+        shipmentList.clear();
         shipmentList.addAll(listShipment);
-        customerList.addAll(listCustomer);*/
+
+        customerList.clear();
+        customerList.addAll(listCustomer);
 
     }
 

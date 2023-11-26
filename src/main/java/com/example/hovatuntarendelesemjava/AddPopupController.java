@@ -1,8 +1,8 @@
 // AddPopupController.java
 package com.example.hovatuntarendelesemjava;
 
+import com.example.hovatuntarendelesemjava.apihandler.VehicleHandler;
 import com.example.hovatuntarendelesemjava.model.*;
-import com.example.hovatuntarendelesemjava.apihandler.DriverHandler;
 import com.example.hovatuntarendelesemjava.model.base.HTARJModelBase;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -13,6 +13,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
 
 public class AddPopupController {
     private Class<?> objClass;
@@ -132,7 +133,7 @@ public class AddPopupController {
     }
 
     @FXML
-    private void onSaveButtonClicked() throws InterruptedException {
+    private void onSaveButtonClicked() throws InterruptedException, ExecutionException {
         // Retrieve data from TextFields and save it to the corresponding TableView
         String[] paramsList = new String[textFieldList.size()];
         int i = 0;
@@ -142,30 +143,21 @@ public class AddPopupController {
         }
 
         if (objClass == Vehicle.class) {
-            MainViewController.getInstance().getVehicleList().add(
-                    new Vehicle(paramsList)
-                    // Create a new Vehicle object with data from TextFields
-            );
+            // Create a new Vehicle object with data from TextFields
+            Vehicle newVehicle = new Vehicle(paramsList);
+            VehicleHandler.sendPostRequest(newVehicle);
         } else if (objClass == Driver.class) {
             // Create a new Vehicle object with data from TextFields
             Driver newDriver = new Driver(paramsList);
-            DriverHandler.sendPostRequest(newDriver);
-
+            VehicleHandler.sendPostRequest(newDriver);
         } else if (objClass == Shipment.class) {
-            MainViewController.getInstance().getShipmentList().add(
-                    new Shipment(paramsList)
-                    // Create a new Vehicle object with data from TextFields
-            );
-        } else if (objClass == Customer.class) {
-            MainViewController.getInstance().getCustomerList().add(
-                    new Customer(paramsList)
-                    // Create a new Vehicle object with data from TextFields
-            );
+            Shipment newShipment = new Shipment(paramsList);
+            VehicleHandler.sendPostRequest(newShipment);
         } else {
             editableObject.setAllFields(paramsList);
         }
 
         fieldsVBox.getScene().getWindow().hide();
-        MainViewController.getInstance().refreshTable();
+        MainViewController.getInstance().reloadTableData();
     }
 }
