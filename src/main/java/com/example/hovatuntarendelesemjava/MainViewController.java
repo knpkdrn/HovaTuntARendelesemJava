@@ -7,22 +7,15 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Priority;
+import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class MainViewController extends Parent {
     @FXML
@@ -93,7 +86,7 @@ public class MainViewController extends Parent {
         vehiclesButton.getStyleClass().remove("radio-button");
         vehiclesButton.getStyleClass().add("toggle-button");
         // Remove vehicles button from the view
-        clientHeader.getChildren().remove(vehiclesButton);
+        // clientHeader.getChildren().remove(vehiclesButton);
 
         driversButton.setToggleGroup(toggleGroup);
         driversButton.getStyleClass().remove("radio-button");
@@ -241,8 +234,8 @@ public class MainViewController extends Parent {
     public static String convertToColumnName(String fieldName){
         String[] words = fieldName.split("(?=\\p{Upper})");
         StringBuilder result = new StringBuilder();
-        for (int i = 0; i < words.length; ++i){
-            result.append(words[i]).append(" ");
+        for (String word : words) {
+            result.append(word).append(" ");
         }
         result.replace(0,1, result.substring(0,1).toUpperCase());
         return result.toString();
@@ -254,7 +247,7 @@ public class MainViewController extends Parent {
         Parent newWindowRoot = loader.load();
 
         Stage newWindowStage = new Stage();
-        newWindowStage.setTitle("New Window");
+        newWindowStage.setTitle("Add");
         newWindowStage.setScene(new Scene(newWindowRoot));
 
         // Set the AddPopupController instance in the FXMLLoader
@@ -272,7 +265,7 @@ public class MainViewController extends Parent {
         Parent newWindowRoot = loader.load();
 
         Stage newWindowStage = new Stage();
-        newWindowStage.setTitle("New Window");
+        newWindowStage.setTitle("Edit");
         newWindowStage.setScene(new Scene(newWindowRoot));
 
         // Set the AddPopupController instance in the FXMLLoader

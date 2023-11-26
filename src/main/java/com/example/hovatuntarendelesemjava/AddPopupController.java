@@ -2,6 +2,7 @@
 package com.example.hovatuntarendelesemjava;
 
 import com.example.hovatuntarendelesemjava.model.*;
+import com.example.hovatuntarendelesemjava.model.apihandler.DriverHandler;
 import com.example.hovatuntarendelesemjava.model.base.HTARJModelBase;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -131,7 +132,7 @@ public class AddPopupController {
     }
 
     @FXML
-    private void onSaveButtonClicked() {
+    private void onSaveButtonClicked() throws InterruptedException {
         // Retrieve data from TextFields and save it to the corresponding TableView
         String[] paramsList = new String[textFieldList.size()];
         int i = 0;
@@ -146,10 +147,10 @@ public class AddPopupController {
                     // Create a new Vehicle object with data from TextFields
             );
         } else if (objClass == Driver.class) {
-            MainViewController.getInstance().getDriverList().add(
-                    new Driver(paramsList)
-                    // Create a new Vehicle object with data from TextFields
-            );
+            // Create a new Vehicle object with data from TextFields
+            Driver newDriver = new Driver(paramsList);
+            DriverHandler.sendPostRequest(newDriver);
+
         } else if (objClass == Shipment.class) {
             MainViewController.getInstance().getShipmentList().add(
                     new Shipment(paramsList)
