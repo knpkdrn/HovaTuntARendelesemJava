@@ -1,5 +1,6 @@
-package com.example.hovatuntarendelesemjava;
+package com.example.hovatuntarendelesemjava.controllers;
 
+import com.example.hovatuntarendelesemjava.apihandler.VehicleHandler;
 import com.example.hovatuntarendelesemjava.model.*;
 import com.example.hovatuntarendelesemjava.model.base.HTARJModelBase;
 import javafx.application.Platform;
@@ -16,6 +17,8 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.lang.reflect.Field;
+import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 public class MainViewController extends Parent {
     @FXML
@@ -79,7 +82,7 @@ public class MainViewController extends Parent {
     }
 
     @FXML
-    void initialize() {
+    void initialize() throws ExecutionException, InterruptedException {
         ToggleGroup toggleGroup = new ToggleGroup();
 
         vehiclesButton.setToggleGroup(toggleGroup);
@@ -109,11 +112,13 @@ public class MainViewController extends Parent {
 
         instance = this;
 
+        reloadTableData();
+
         Platform.runLater(() -> {
             System.out.println(user.getEmail() + " " + user.getPassword() + " " + user.getAdmin());
             logOutButton.setText(user.getEmail());
-            double prfWdth = logOutButton.prefWidth(-1);
-            logOutButton.setMinWidth(prfWdth);
+            double prefWidth = logOutButton.prefWidth(-1);
+            logOutButton.setMinWidth(prefWidth);
         });
     }
 
@@ -231,6 +236,7 @@ public class MainViewController extends Parent {
 
         return tableView;
     }
+
     public static String convertToColumnName(String fieldName){
         String[] words = fieldName.split("(?=\\p{Upper})");
         StringBuilder result = new StringBuilder();
@@ -240,6 +246,7 @@ public class MainViewController extends Parent {
         result.replace(0,1, result.substring(0,1).toUpperCase());
         return result.toString();
     }
+
     private void openNewWindow(Class<?> objClass) throws IOException {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("addPopup-view.fxml"));
@@ -275,4 +282,18 @@ public class MainViewController extends Parent {
 
         newWindowStage.show();
     }
+
+    private void reloadTableData() throws ExecutionException, InterruptedException {
+        List<Vehicle> listVehicle = VehicleHandler.sendGetAllRequest(Vehicle.class);
+        List<Driver> listDriver = VehicleHandler.sendGetAllRequest(Driver.class);
+        List<Shipment> listShipment = VehicleHandler.sendGetAllRequest(Shipment.class);
+        List<Customer> listCustomer = VehicleHandler.sendGetAllRequest(Customer.class);
+
+        vehicleList.addAll(listVehicle);
+        /*driverList.addAll(listDriver);
+        shipmentList.addAll(listShipment);
+        customerList.addAll(listCustomer);*/
+
+    }
+
 }

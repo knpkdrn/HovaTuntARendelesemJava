@@ -1,7 +1,6 @@
-package com.example.hovatuntarendelesemjava;
+package com.example.hovatuntarendelesemjava.controllers;
 
 import com.example.hovatuntarendelesemjava.model.*;
-import javafx.css.Match;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;

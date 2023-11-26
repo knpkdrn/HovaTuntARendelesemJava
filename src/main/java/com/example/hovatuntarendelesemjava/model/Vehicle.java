@@ -41,27 +41,6 @@ public class Vehicle implements HTARJModelBase {
         this.shipmentId = Integer.parseInt(paramsList[15]);
         this.vehicleStatus = paramsList[16];
     }
-
-    public Vehicle() {
-        setLicensePlate("AAA000");
-        setMake("toyoda");
-        setModel("alygo");
-        setProdYear(1848);
-        setCost(4.0);
-        setMaxFuelInLiter(400);
-        setLastRefuelling("2002-01-24");
-        setLastRefuellingCost(36);
-        setCapacity(3425);
-        setMaintenanceInterval(43);
-        setLastMaintenance("2002-01-24");
-        setNextMaintenance("2002-01-24");
-        setDoneDistance(324.0);
-        setAvgConsumption(32.0);
-        setDriverId(4);
-        setShipmentId(52);
-        setVehicleStatus("active");
-    }
-
     public String getLicensePlate() {
         return licensePlate;
     }

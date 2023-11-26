@@ -3,15 +3,6 @@ package com.example.hovatuntarendelesemjava.model;
 import com.example.hovatuntarendelesemjava.model.base.HTARJModelBase;
 
 public class Driver implements HTARJModelBase {
-    public Driver() {
-        setDriverID(1);
-        setFirstName("Varga");
-        setLastName("Fisz");
-        setLicenseNumber("4126173");
-        setPhoneNumber("+06904206969");
-        setEmailAddress("fisz@fesz.cxm");
-        setAssignedVehicleLicense("AAA000");
-    }
 
     private int driverID;
     private String firstName;

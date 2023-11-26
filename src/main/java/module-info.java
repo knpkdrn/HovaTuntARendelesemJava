@@ -15,4 +15,6 @@ module com.example.hovatuntarendelesemjava {
     opens com.example.hovatuntarendelesemjava.model to com.google.gson, javafx.fxml;
     exports com.example.hovatuntarendelesemjava.model.base;
     opens com.example.hovatuntarendelesemjava.model.base to com.google.gson, javafx.fxml;
+    exports com.example.hovatuntarendelesemjava.controllers;
+    opens com.example.hovatuntarendelesemjava.controllers to javafx.fxml;
 }

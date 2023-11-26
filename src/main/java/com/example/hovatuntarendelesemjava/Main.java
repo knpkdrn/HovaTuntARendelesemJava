@@ -19,7 +19,7 @@ public class Main extends Application {
         stage.setResizable(false);
         stage.show();
     }
-Vehicle car = new Vehicle();
+
     public static void main(String[] args) {
         launch();
     }
