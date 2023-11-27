@@ -306,9 +306,9 @@ public class MainViewController extends Parent {
             clientHeader.getChildren().remove(vehiclesButton);
             clientHeader.getChildren().remove(driversButton);
             clientHeader.getChildren().remove(customersButton);
-            addItemButton.setDisable(false);
-            removeItemButton.setDisable(false);
-            editButton.setDisable(false);
+            addItemButton.setDisable(true);
+            removeItemButton.setDisable(true);
+            editButton.setDisable(true);
 
         }
         else {

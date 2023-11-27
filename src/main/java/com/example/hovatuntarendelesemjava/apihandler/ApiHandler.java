@@ -17,7 +17,7 @@ import java.util.concurrent.ExecutionException;
 public class ApiHandler {
 
     private static HttpRequest request;
-    private static final String uriBase = "https://b82b-84-3-207-209.ngrok.io";
+    private static final String uriBase = "";
 
     public static void sendPostRequest(Object object){
         HttpClient httpClient = HttpClient.newHttpClient();
