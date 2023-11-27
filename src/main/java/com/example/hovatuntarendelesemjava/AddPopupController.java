@@ -5,6 +5,7 @@ import com.example.hovatuntarendelesemjava.apihandler.ApiHandler;
 import com.example.hovatuntarendelesemjava.model.*;
 import com.example.hovatuntarendelesemjava.model.base.HTARJModelBase;
 import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
@@ -40,22 +41,14 @@ public class AddPopupController {
                             }
                             if (f.getType() == int.class || f.getType() == Integer.class){
                                 TextField textField = new TextField();
-                                textField.textProperty().addListener((observable, oldValue, newValue) -> {
-                                    if (!newValue.matches("\\d*")) {
-                                        textField.setText(newValue.replaceAll("[^\\d]", ""));
-                                    }
-                                });
+                                textField.textProperty().addListener(getChangeListener(textField));
                                 textField.setPromptText(MainViewController.convertToColumnName(f.getName()));
                                 fieldsVBox.getChildren().add(textField);
                                 textFieldList.add(textField);
                             }
                             if (f.getType() == Double.class){
                                 TextField textField = new TextField();
-                                textField.textProperty().addListener((observable, oldValue, newValue) -> {
-                                    if (!newValue.matches("\\d*")) {
-                                        textField.setText(newValue.replaceAll("[^\\d]", ""));
-                                    }
-                                });
+                                textField.textProperty().addListener(getChangeListener(textField));
                                 textField.setPromptText(MainViewController.convertToColumnName(f.getName()));
                                 fieldsVBox.getChildren().add(textField);
                                 textFieldList.add(textField);
@@ -81,11 +74,7 @@ public class AddPopupController {
                             }
                             if (f.getType() == int.class || f.getType() == Integer.class){
                                 TextField textField = new TextField();
-                                textField.textProperty().addListener((observable, oldValue, newValue) -> {
-                                    if (!newValue.matches("\\d*")) {
-                                        textField.setText(newValue.replaceAll("[^\\d]", ""));
-                                    }
-                                });
+                                textField.textProperty().addListener(getChangeListener(textField));
                                 textField.setPromptText(MainViewController.convertToColumnName(f.getName()));
                                 String getterName = "get" + f.getName().substring(0, 1).toUpperCase() + f.getName().substring(1);
                                 try {
@@ -99,11 +88,7 @@ public class AddPopupController {
                             }
                             if (f.getType() == Double.class){
                                 TextField textField = new TextField();
-                                textField.textProperty().addListener((observable, oldValue, newValue) -> {
-                                    if (!newValue.matches("\\d*")) {
-                                        textField.setText(newValue.replaceAll("[^\\d]", ""));
-                                    }
-                                });
+                                textField.textProperty().addListener(getChangeListener(textField));
                                 textField.setPromptText(MainViewController.convertToColumnName(f.getName()));
                                 String getterName = "get" + f.getName().substring(0, 1).toUpperCase() + f.getName().substring(1);
                                 try {
@@ -119,6 +104,14 @@ public class AddPopupController {
                     }
                 }
         );
+    }
+
+    private ChangeListener<String> getChangeListener(TextField textField) {
+        return (observable, oldValue, newValue) -> {
+            if (!newValue.matches("\\d*")) {
+                textField.setText(newValue.replaceAll("[^\\d]", ""));
+            }
+        };
     }
 
     // Add more fields for other attributes

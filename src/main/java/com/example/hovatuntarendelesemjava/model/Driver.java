@@ -22,7 +22,7 @@ public class Driver implements HTARJModelBase {
         this.assignedVehicleLicense = paramsList[6];
     }
 
-    public int getDriverID() {
+    public int getDriverId() {
         return driverId;
     }
     public String getFirstName() {
@@ -43,8 +43,8 @@ public class Driver implements HTARJModelBase {
     public String getAssignedVehicleLicense() {
         return assignedVehicleLicense;
     }
-    public void setDriverID(int driverID) {
-        this.driverId = driverID;
+    public void setDriverId(int driverId) {
+        this.driverId = driverId;
     }
     public void setFirstName(String firstName) {
         this.firstName = firstName;

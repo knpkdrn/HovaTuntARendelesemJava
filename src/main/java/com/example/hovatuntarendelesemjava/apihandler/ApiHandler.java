@@ -19,7 +19,7 @@ import java.util.concurrent.ExecutionException;
 public class ApiHandler {
 
     private static HttpRequest request;
-    private static final String uriBase = "https://63d5-84-3-207-209.ngrok.io";
+    private static final String uriBase = "https://f120-84-3-207-209.ngrok.io";
 
     public static void sendPostRequest(Object object){
         HttpClient httpClient = HttpClient.newHttpClient();
@@ -74,7 +74,7 @@ public class ApiHandler {
 
         }else if (object instanceof Driver driver) {
             request = HttpRequest.newBuilder()
-                    .uri(URI.create(uriBase + "/api/drivers/driverId/" + driver.getDriverID()))
+                    .uri(URI.create(uriBase + "/api/drivers/driverId/" + driver.getDriverId()))
                     .header("Content-Type", "application/json")
                     .GET()
                     .build();
@@ -172,7 +172,7 @@ public class ApiHandler {
 
         } else if (object instanceof Driver driver) {
             request = HttpRequest.newBuilder()
-                    .uri(URI.create(uriBase + "/api/drivers/driverID/" + driver.getDriverID()))
+                    .uri(URI.create(uriBase + "/api/drivers/driverId/" + driver.getDriverId()))
                     .header("Content-Type", "application/json")
                     .DELETE()
                     .build();
