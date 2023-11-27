@@ -1,5 +1,6 @@
 package com.example.hovatuntarendelesemjava;
 
+import com.example.hovatuntarendelesemjava.UserData.UserData;
 import com.example.hovatuntarendelesemjava.apihandler.ApiHandler;
 import com.example.hovatuntarendelesemjava.model.*;
 import com.example.hovatuntarendelesemjava.model.base.HTARJModelBase;
@@ -51,15 +52,7 @@ public class MainViewController extends Parent {
     private TableView<Shipment> shipmentTableView;
     private TableView<Customer> customerTableView;
     private static MainViewController instance;
-    private User user;
 
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
 
     public static MainViewController getInstance() {
         return instance;
@@ -115,8 +108,7 @@ public class MainViewController extends Parent {
         reloadTableData();
 
         Platform.runLater(() -> {
-            System.out.println(user.getUsername() + " " + user.getEmail() + " " + user.getPassword() + " " + user.getAdmin());
-            logOutButton.setText(user.getEmail());
+            logOutButton.setText(UserData.getInstance().getUsername());
             double prefWidth = logOutButton.prefWidth(-1);
             logOutButton.setMinWidth(prefWidth);
         });
@@ -199,14 +191,17 @@ public class MainViewController extends Parent {
     }
     @FXML
     public void logOutButtonOnMouseClicked() {
+        UserData.newInstance();
         Stage loginVw = new Stage();
         loginVw.setScene(LoginViewController.getInstance().logInButton.getScene());
+        LoginViewController.getInstance().passwordField.setText("");
+        LoginViewController.getInstance().userIdField.setText("");
         this.logOutButton.getScene().getWindow().hide();
         loginVw.show();
     }
     @FXML
     public void logOutButtonOnMouseExited() {
-        logOutButton.setText(user.getEmail());
+        logOutButton.setText(UserData.getInstance().getUsername());
     }
     @FXML
     public void logOutButtonOnMouseEntered() {

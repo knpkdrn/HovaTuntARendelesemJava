@@ -1,5 +1,6 @@
 package com.example.hovatuntarendelesemjava;
 
+import com.example.hovatuntarendelesemjava.UserData.UserData;
 import com.example.hovatuntarendelesemjava.model.Vehicle;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -21,6 +22,7 @@ public class Main extends Application {
     }
 
     public static void main(String[] args) {
+        UserData.newInstance();
         launch();
     }
 }

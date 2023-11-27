@@ -1,9 +1,7 @@
 package com.example.hovatuntarendelesemjava.apihandler;
 
-import com.example.hovatuntarendelesemjava.model.Customer;
-import com.example.hovatuntarendelesemjava.model.Driver;
-import com.example.hovatuntarendelesemjava.model.Shipment;
-import com.example.hovatuntarendelesemjava.model.Vehicle;
+import com.example.hovatuntarendelesemjava.UserData.UserData;
+import com.example.hovatuntarendelesemjava.model.*;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -59,7 +57,7 @@ public class ApiHandler {
 
     }
 
-    public static void sendGetByIdRequest(Object object){
+    public static Object sendGetByIdRequest(Object object){
         HttpClient httpClient = HttpClient.newHttpClient();
         Gson gson = new Gson();
         String json = gson.toJson(object);
@@ -91,13 +89,23 @@ public class ApiHandler {
                     .header("Content-Type", "application/json")
                     .GET()
                     .build();
-        } else { }
+        }
 
 
         CompletableFuture<HttpResponse<String>> response = httpClient.sendAsync(request, HttpResponse.BodyHandlers.ofString());
 
-        response.thenApply(HttpResponse::body).thenAccept(System.out::println).join();
-
+        return response.thenApply(HttpResponse::body).thenApplyAsync(responseBody -> {
+            if(object instanceof Vehicle) {
+                return gson.fromJson(responseBody, Vehicle.class);
+            } else if (object instanceof Driver) {
+                return gson.fromJson(responseBody, Driver.class);
+            } else if (object instanceof Customer) {
+                return gson.fromJson(responseBody, Customer.class);
+            } else if (object instanceof Shipment) {
+                return gson.fromJson(responseBody, Shipment.class);
+            }
+            return null;
+        }).join();
     }
 
     public static <T> List<T> sendGetAllRequest(Class type) throws ExecutionException, InterruptedException {
@@ -236,4 +244,38 @@ public class ApiHandler {
 
         response.thenApply(HttpResponse::body).thenAccept(System.out::println).join();
     }
+
+    public static Object sendLogInGetRequest(String email, String password){
+        HttpClient httpClient = HttpClient.newHttpClient();
+        Gson gson = new Gson();
+
+        request = HttpRequest.newBuilder()
+                .uri(URI.create(uriBase + "/api/users/logIn/" + email + "&" + password))
+                .header("Content-Type", "application/json")
+                .GET()
+                .build();
+
+        CompletableFuture<HttpResponse<String>> response = httpClient.sendAsync(request, HttpResponse.BodyHandlers.ofString());
+
+        return response.thenApply(HttpResponse::body).
+                thenApplyAsync(responseBody -> {
+                    try {
+                        if(response.get().statusCode() != 500) {
+                            User user = gson.fromJson(responseBody, User.class);
+                            if(user != null){
+                                UserData.setInstance(user);
+                                System.out.println(responseBody);
+                                return user;
+                            }
+                        }
+                    } catch (InterruptedException e) {
+                        return null;
+                    } catch (ExecutionException e) {
+                        return null;
+                    }
+                    return null;
+                }).join();
+    }
+
+
 }

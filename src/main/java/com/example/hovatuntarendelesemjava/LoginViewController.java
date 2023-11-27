@@ -1,5 +1,7 @@
 package com.example.hovatuntarendelesemjava;
 
+import com.example.hovatuntarendelesemjava.UserData.UserData;
+import com.example.hovatuntarendelesemjava.apihandler.ApiHandler;
 import com.example.hovatuntarendelesemjava.model.*;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -12,6 +14,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.Objects;
+import java.util.concurrent.ExecutionException;
 import java.util.regex.*;
 
 public class LoginViewController {
@@ -32,12 +35,22 @@ public class LoginViewController {
     }
 
     @FXML
-    private void onLogInButtonClicked() throws IOException {
+    private void onLogInButtonClicked() throws IOException{
         // Check if the text fields are empty
         if(!Objects.equals(userIdField.getText(), "") && !Objects.equals(passwordField.getText(), "")) {
             if (validateEmail(userIdField.getText())){
-                User user = new User(new String[]{userIdField.getText(), "asd", passwordField.getText(), "true"});
-                openMainWindow(user);
+                //User user = new User(new String[]{userIdField.getText(), "asd", passwordField.getText(), "true"});
+
+                if(ApiHandler.sendLogInGetRequest(userIdField.getText(), passwordField.getText()) != null) {
+
+                    if(UserData.getInstance().getWasLoggedIn()){
+                        // change password
+                    }
+                    openMainWindow();
+                }
+                else {
+                    new Alert(Alert.AlertType.WARNING, "Email or Password is incorrect!").show();
+                }
             }
             else {
                 new Alert(Alert.AlertType.WARNING, "Enter a valid email address!").show();
@@ -47,7 +60,8 @@ public class LoginViewController {
             new Alert(Alert.AlertType.WARNING, "Don't leave email and password fields empty!").show();
         }
     }
-    private void openMainWindow(User user) throws IOException {
+
+    private void openMainWindow() throws IOException {
         // Create stage, scene, root node etc.
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("main-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
@@ -57,7 +71,6 @@ public class LoginViewController {
 
         // Set user for the app
         MainViewController mainViewController = fxmlLoader.getController();
-        mainViewController.setUser(user);
         logInButton.getScene().getWindow().hide();
         stage.show();
     }

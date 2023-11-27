@@ -10,6 +10,8 @@ public class User implements HTARJModelBase {
     private String username;
     private String password;
     private Boolean isAdmin;
+    private Boolean wasLoggedIn;
+
 
     public String getUsername() {
         return username;
@@ -27,6 +29,11 @@ public class User implements HTARJModelBase {
         return isAdmin;
     }
 
+    public Boolean getWasLoggedIn() {
+        return wasLoggedIn;
+    }
+
+
     public void setUsername(String username) {
         this.username = username;
     }
@@ -42,6 +49,11 @@ public class User implements HTARJModelBase {
     public void setAdmin(Boolean admin) {
         isAdmin = admin;
     }
+    public void setWasLoggedIn(Boolean wasLoggedIn) {
+        this.wasLoggedIn = wasLoggedIn;
+    }
+
+    public User() {}
 
     public User(String[] paramsList){
         Field[] fieldList = this.getClass().getDeclaredFields();
