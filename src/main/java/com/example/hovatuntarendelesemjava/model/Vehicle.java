@@ -2,6 +2,8 @@ package com.example.hovatuntarendelesemjava.model;
 
 import com.example.hovatuntarendelesemjava.model.base.HTARJModelBase;
 
+import java.util.regex.*;
+
 public class Vehicle implements HTARJModelBase {
 
     private String licensePlate;
@@ -23,23 +25,23 @@ public class Vehicle implements HTARJModelBase {
     private String vehicleStatus;
 
     public Vehicle(String[] paramsList) {
-        this.licensePlate = paramsList[0];
-        this.make = paramsList[1];
-        this.model = paramsList[2];
-        this.prodYear = Integer.parseInt(paramsList[3]);
-        this.cost = Double.parseDouble(paramsList[4]);
-        this.maxFuelInLiter = Integer.parseInt(paramsList[5]);
-        this.lastRefuelling = paramsList[6];
-        this.lastRefuellingCost = Integer.parseInt(paramsList[7]);
-        this.capacity = Integer.parseInt(paramsList[8]);
-        this.maintenanceInterval = Integer.parseInt(paramsList[9]);
-        this.lastMaintenance = paramsList[10];
-        this.nextMaintenance = paramsList[11];
-        this.doneDistance = Double.parseDouble(paramsList[12]);
-        this.avgConsumption = Double.parseDouble(paramsList[13]);
-        this.driverId = Integer.parseInt(paramsList[14]);
-        this.shipmentId = Integer.parseInt(paramsList[15]);
-        this.vehicleStatus = paramsList[16];
+        setLicensePlate(paramsList[0]);
+        setMake(paramsList[1]);
+        setModel(paramsList[2]);
+        setProdYear(Integer.parseInt(paramsList[3]));
+        setCost(Double.parseDouble(paramsList[4]));
+        setMaxFuelInLiter(Integer.parseInt(paramsList[5]));
+        setLastRefuelling(paramsList[6]);
+        setLastRefuellingCost(Integer.parseInt(paramsList[7]));
+        setCapacity(Integer.parseInt(paramsList[8]));
+        setMaintenanceInterval(Integer.parseInt(paramsList[9]));
+        setLastMaintenance(paramsList[10]);
+        setNextMaintenance(paramsList[11]);
+        setDoneDistance(Double.parseDouble(paramsList[12]));
+        setAvgConsumption(Double.parseDouble(paramsList[13]));
+        setDriverId(Integer.parseInt(paramsList[14]));
+        setShipmentId(Integer.parseInt(paramsList[15]));
+        setVehicleStatus(paramsList[16]);
     }
     public String getLicensePlate() {
         return licensePlate;
@@ -134,7 +136,10 @@ public class Vehicle implements HTARJModelBase {
     }
 
     public void setLastRefuelling(String lastRefuelling) {
-        this.lastRefuelling = lastRefuelling;
+        if (checkDateFormat(lastRefuelling)){
+            this.lastRefuelling = lastRefuelling;
+        }
+        else throw new IllegalArgumentException("The value passed in field 'Last Refuelling' is not a date or is not in the correct format (yyyy-mm-dd)");
     }
 
     public void setLastRefuellingCost(Integer lastRefuellingCost) {
@@ -150,11 +155,17 @@ public class Vehicle implements HTARJModelBase {
     }
 
     public void setLastMaintenance(String lastMaintenance) {
-        this.lastMaintenance = lastMaintenance;
+        if (checkDateFormat(lastMaintenance)){
+            this.lastMaintenance = lastMaintenance;
+        }
+        else throw new IllegalArgumentException("The value in field 'Last Maintenance' is not a date or is not in the correct format (yyyy-mm-dd)");
     }
 
     public void setNextMaintenance(String nextMaintenance) {
-        this.nextMaintenance = nextMaintenance;
+        if (checkDateFormat(nextMaintenance)){
+            this.nextMaintenance = nextMaintenance;
+        }
+        else throw new IllegalArgumentException("The value in field 'Next Maintenance' is not a date or is not in the correct format (yyyy-mm-dd)");
     }
 
     public void setDoneDistance(Double doneDistance) {
@@ -174,27 +185,38 @@ public class Vehicle implements HTARJModelBase {
     }
 
     public void setVehicleStatus(String vehicleStatus) {
-        this.vehicleStatus = vehicleStatus;
+        if (checkVehicleStatus(vehicleStatus)){
+            this.vehicleStatus = vehicleStatus;
+        }
+        else throw new IllegalArgumentException("The value in field 'Vehicle Status' is not 'on route', 'idle' or 'active'. Please choose from one of these parameters");
     }
 
     @Override
     public void setAllFields(String[] paramsList) {
-        this.licensePlate = paramsList[0];
-        this.make = paramsList[1];
-        this.model = paramsList[2];
-        this.prodYear = Integer.parseInt(paramsList[3]);
-        this.cost = Double.parseDouble(paramsList[4]);
-        this.maxFuelInLiter = Integer.parseInt(paramsList[5]);
-        this.lastRefuelling = paramsList[6];
-        this.lastRefuellingCost = Integer.parseInt(paramsList[7]);
-        this.capacity = Integer.parseInt(paramsList[8]);
-        this.maintenanceInterval = Integer.parseInt(paramsList[9]);
-        this.lastMaintenance = paramsList[10];
-        this.nextMaintenance = paramsList[11];
-        this.doneDistance = Double.parseDouble(paramsList[12]);
-        this.avgConsumption = Double.parseDouble(paramsList[13]);
-        this.driverId = Integer.parseInt(paramsList[14]);
-        this.shipmentId = Integer.parseInt(paramsList[15]);
-        this.vehicleStatus = paramsList[16];
+        setLicensePlate(paramsList[0]);
+        setMake(paramsList[1]);
+        setModel(paramsList[2]);
+        setProdYear(Integer.parseInt(paramsList[3]));
+        setCost(Double.parseDouble(paramsList[4]));
+        setMaxFuelInLiter(Integer.parseInt(paramsList[5]));
+        setLastRefuelling(paramsList[6]);
+        setLastRefuellingCost(Integer.parseInt(paramsList[7]));
+        setCapacity(Integer.parseInt(paramsList[8]));
+        setMaintenanceInterval(Integer.parseInt(paramsList[9]));
+        setLastMaintenance(paramsList[10]);
+        setNextMaintenance(paramsList[11]);
+        setDoneDistance(Double.parseDouble(paramsList[12]));
+        setAvgConsumption(Double.parseDouble(paramsList[13]));
+        setDriverId(Integer.parseInt(paramsList[14]));
+        setShipmentId(Integer.parseInt(paramsList[15]));
+        setVehicleStatus(paramsList[16]);
+    }
+    private boolean checkDateFormat(String value){
+        Pattern datePattern = Pattern.compile("^[0-9]{4}-[0-9]{2}-[0-9]{2}$");
+        Matcher matcher = datePattern.matcher(value);
+        return matcher.matches();
+    }
+    private boolean checkVehicleStatus(String value){
+        return value.matches("on route|idle|active");
     }
 }

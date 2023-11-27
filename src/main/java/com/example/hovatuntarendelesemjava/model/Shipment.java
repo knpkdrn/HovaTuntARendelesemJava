@@ -2,6 +2,9 @@ package com.example.hovatuntarendelesemjava.model;
 
 import com.example.hovatuntarendelesemjava.model.base.HTARJModelBase;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class Shipment implements HTARJModelBase {
     private int shipmentId;
     private int customerId;
@@ -11,13 +14,13 @@ public class Shipment implements HTARJModelBase {
     private String destination;
     private String shipmentStatus;
     public Shipment(String[] paramsList){
-        this.shipmentId = Integer.parseInt(paramsList[0]);
-        this.customerId = Integer.parseInt(paramsList[1]);
-        this.startTime = paramsList[2];
-        this.endTime = paramsList[3];
-        this.origin = paramsList[4];
-        this.destination = paramsList[5];
-        this.shipmentStatus = paramsList[6];
+        setShipmentId(Integer.parseInt(paramsList[0]));
+        setCustomerId(Integer.parseInt(paramsList[1]));
+        setStartTime(paramsList[2]);
+        setEndTime(paramsList[3]);
+        setOrigin(paramsList[4]);
+        setDestination(paramsList[5]);
+        setShipmentStatus(paramsList[6]);
     }
 
     public int getShipmentId() {
@@ -49,10 +52,16 @@ public class Shipment implements HTARJModelBase {
         this.customerId = customerId;
     }
     public void setStartTime(String startTime) {
-        this.startTime = startTime;
+        if (checkDateFormat(startTime)){
+            this.startTime = startTime;
+        }
+        else throw new IllegalArgumentException("The value in field 'Start Time' is not a date or is not in the correct format (yyyy-mm-dd)");
     }
     public void setEndTime(String endTime) {
-        this.endTime = endTime;
+        if (checkDateFormat(endTime)){
+            this.endTime = endTime;
+        }
+        else throw new IllegalArgumentException("The value in field 'Start Time' is not a date or is not in the correct format (yyyy-mm-dd)");
     }
     public void setOrigin(String origin) {
         this.origin = origin;
@@ -61,17 +70,28 @@ public class Shipment implements HTARJModelBase {
         this.destination = destination;
     }
     public void setShipmentStatus(String shipmentStatus) {
-        this.shipmentStatus = shipmentStatus;
+        if (checkShipmentStatus(shipmentStatus)){
+            this.shipmentStatus = shipmentStatus;
+        }
+        else throw new IllegalArgumentException("The value in field 'Vehicle Status' is not 'in system', 'scheduled', 'enroute', 'completed', 'canceled'. Please choose from one of these parameters");
     }
 
     @Override
     public void setAllFields(String[] paramsList) {
-        this.shipmentId = Integer.parseInt(paramsList[0]);
-        this.customerId = Integer.parseInt(paramsList[1]);
-        this.startTime = paramsList[2];
-        this.endTime = paramsList[3];
-        this.origin = paramsList[4];
-        this.destination = paramsList[5];
-        this.shipmentStatus = paramsList[6];
+        setShipmentId(Integer.parseInt(paramsList[0]));
+        setCustomerId(Integer.parseInt(paramsList[1]));
+        setStartTime(paramsList[2]);
+        setEndTime(paramsList[3]);
+        setOrigin(paramsList[4]);
+        setDestination(paramsList[5]);
+        setShipmentStatus(paramsList[6]);
+    }
+    private boolean checkDateFormat(String value){
+        Pattern datePattern = Pattern.compile("^[0-9]{4}-[0-9]{2}-[0-9]{2}$");
+        Matcher matcher = datePattern.matcher(value);
+        return matcher.matches();
+    }
+    private boolean checkShipmentStatus(String value){
+        return value.matches("in system|scheduled|enroute|completed|canceled");
     }
 }

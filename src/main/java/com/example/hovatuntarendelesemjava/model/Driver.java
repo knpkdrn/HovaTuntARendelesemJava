@@ -13,13 +13,13 @@ public class Driver implements HTARJModelBase {
     private String assignedVehicleLicense;
 
     public Driver(String[] paramsList) {
-        this.driverId = Integer.parseInt(paramsList[0]);
-        this.firstName = paramsList[1];
-        this.lastName = paramsList[2];
-        this.licenseNumber = paramsList[3];
-        this.phoneNumber = paramsList[4];
-        this.emailAddress = paramsList[5];
-        this.assignedVehicleLicense = paramsList[6];
+        setDriverId(Integer.parseInt(paramsList[0]));
+        setFirstName(paramsList[1]);
+        setLastName(paramsList[2]);
+        setLicenseNumber(paramsList[3]);
+        setPhoneNumber(paramsList[4]);
+        setEmailAddress(paramsList[5]);
+        setAssignedVehicleLicense(paramsList[6]);
     }
 
     public int getDriverId() {
@@ -67,12 +67,12 @@ public class Driver implements HTARJModelBase {
 
     @Override
     public void setAllFields(String[] paramsList) {
-        this.driverId = Integer.parseInt(paramsList[0]);
-        this.firstName = paramsList[1];
-        this.lastName = paramsList[2];
-        this.licenseNumber = paramsList[3];
-        this.phoneNumber = paramsList[4];
-        this.emailAddress = paramsList[5];
-        this.assignedVehicleLicense = paramsList[6];
+        setDriverId(Integer.parseInt(paramsList[0]));
+        setFirstName(paramsList[1]);
+        setLastName(paramsList[2]);
+        setLicenseNumber(paramsList[3]);
+        setPhoneNumber(paramsList[4]);
+        setEmailAddress(paramsList[5]);
+        setAssignedVehicleLicense(paramsList[6]);
     }
 }

@@ -1,0 +1,23 @@
+.main-pane{
+    -fx-alignment: CENTER;
+    -fx-background-color: #1F3333;
+}
+.main-pane *{
+    -fx-padding:8;
+    -fx-background-insets: 5;
+    -fx-pref-width: 250;
+}
+.fields-vbox TextField{
+    -fx-opacity:0.6;
+}
+.main-pane Button{
+        -fx-text-fill: #CAD2C5;
+        -fx-background-color: #320A28;
+        -fx-font-size: 20px;
+}
+.main-pane Button:hover{
+    -fx-background-color: #440D36;
+}
+.main-pane Button:pressed{
+    -fx-background-color: #1F0618;
+}

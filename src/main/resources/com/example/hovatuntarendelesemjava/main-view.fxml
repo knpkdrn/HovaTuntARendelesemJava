@@ -52,7 +52,7 @@
                     <HBox fx:id="itemsControls" alignment="BOTTOM_LEFT" styleClass="items-controls" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS">
                         <Button fx:id="addItemButton" onMouseClicked="#onAddButtonClicked" text="+" GridPane.columnIndex="0" GridPane.rowIndex="1" />
                         <Button fx:id="removeItemButton" onMouseClicked="#onRemoveButtonClicked" text="-" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                        <Button fx:id="editButton" onMouseClicked="#onRefreshButtonClicked" text="⟳" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                        <Button fx:id="editButton" onMouseClicked="#onEditButtonClicked" text="⟳" GridPane.columnIndex="2" GridPane.rowIndex="1" />
                     </HBox>
 
                 </GridPane>

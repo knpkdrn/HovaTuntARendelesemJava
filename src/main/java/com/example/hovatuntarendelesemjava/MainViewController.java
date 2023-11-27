@@ -81,13 +81,10 @@ public class MainViewController extends Parent {
         vehiclesButton.setToggleGroup(toggleGroup);
         vehiclesButton.getStyleClass().remove("radio-button");
         vehiclesButton.getStyleClass().add("toggle-button");
-        // Remove vehicles button from the view
-        // clientHeader.getChildren().remove(vehiclesButton);
 
         driversButton.setToggleGroup(toggleGroup);
         driversButton.getStyleClass().remove("radio-button");
         driversButton.getStyleClass().add("toggle-button");
-        driversButton.setSelected(true);
 
         shipmentButton.setToggleGroup(toggleGroup);
         shipmentButton.getStyleClass().remove("radio-button");
@@ -101,7 +98,8 @@ public class MainViewController extends Parent {
         driverTableView = createTableView(driverList, Driver.class);
         shipmentTableView = createTableView(shipmentList, Shipment.class);
         customerTableView = createTableView(customerList, Customer.class);
-        itemsGridPane.getChildren().add(driverTableView);
+
+        setAccessibility(UserData.getInstance().getIsAdmin());
 
         instance = this;
 
@@ -123,24 +121,28 @@ public class MainViewController extends Parent {
     }
 
     @FXML
-    private void onRemoveButtonClicked() {
+    private void onRemoveButtonClicked() throws ExecutionException, InterruptedException {
         if (vehiclesButton.isSelected() && !vehicleList.isEmpty()) {
-            vehicleList.remove(vehicleTableView.getSelectionModel().getSelectedIndex());
+            ApiHandler.sendDeleteRequest(vehicleList.get(vehicleTableView.getSelectionModel().getSelectedIndex()));
+            reloadTableData();
             vehicleTableView.getSelectionModel().clearSelection();
         } else if (driversButton.isSelected() && !driverList.isEmpty()) {
-            driverList.remove(driverTableView.getSelectionModel().getSelectedIndex());
+            ApiHandler.sendDeleteRequest(driverList.get(driverTableView.getSelectionModel().getSelectedIndex()));
+            reloadTableData();
             driverTableView.getSelectionModel().clearSelection();
         } else if (customersButton.isSelected() && !customerList.isEmpty()) {
-            customerList.remove(customerTableView.getSelectionModel().getSelectedIndex());
+            ApiHandler.sendDeleteRequest(customerList.get(customerTableView.getSelectionModel().getSelectedIndex()));
+            reloadTableData();
             customerTableView.getSelectionModel().clearSelection();
         } else if (shipmentButton.isSelected() && !shipmentList.isEmpty()) {
-            shipmentList.remove(shipmentTableView.getSelectionModel().getSelectedIndex());
+            ApiHandler.sendDeleteRequest(shipmentList.get(shipmentTableView.getSelectionModel().getSelectedIndex()));
+            reloadTableData();
             shipmentTableView.getSelectionModel().clearSelection();
         }
     }
 
     @FXML
-    private void onRefreshButtonClicked() throws IOException {
+    private void onEditButtonClicked() throws IOException {
         if (vehiclesButton.isSelected() && !vehicleList.isEmpty())
             openNewWindow(vehicleList.get(vehicleTableView.getSelectionModel().getSelectedIndex()));
         if (driversButton.isSelected() && !driverList.isEmpty())
@@ -151,43 +153,40 @@ public class MainViewController extends Parent {
             openNewWindow(shipmentList.get(shipmentTableView.getSelectionModel().getSelectedIndex()));
     }
 
-    public void refreshTable() {
-        if (vehiclesButton.isSelected()) {
-            vehicleTableView.refresh();
-        } else if (driversButton.isSelected()) {
-            driverTableView.refresh();
-        } else if (shipmentButton.isSelected()) {
-            shipmentTableView.refresh();
-        } else if (customersButton.isSelected()) {
-            customerTableView.refresh();
-        }
-    }
-
     @FXML
     private void onVehiclesButtonClicked() {
         itemsGridPane.getChildren().remove(1);
         itemsGridPane.getChildren().add(vehicleTableView);
-
+        addItemButton.setDisable(false);
+        removeItemButton.setDisable(false);
+        editButton.setDisable(false);
     }
 
     @FXML
     private void onDriversButtonClicked() {
         itemsGridPane.getChildren().remove(1);
         itemsGridPane.getChildren().add(driverTableView);
-
+        addItemButton.setDisable(false);
+        removeItemButton.setDisable(false);
+        editButton.setDisable(false);
     }
 
     @FXML
     private void onShipmentButtonClicked() {
         itemsGridPane.getChildren().remove(1);
         itemsGridPane.getChildren().add(shipmentTableView);
-
+        addItemButton.setDisable(!UserData.getInstance().getIsAdmin());
+        removeItemButton.setDisable(!UserData.getInstance().getIsAdmin());
+        editButton.setDisable(!UserData.getInstance().getIsAdmin());
     }
 
     @FXML
     private void onCustomersButtonClicked() {
         itemsGridPane.getChildren().remove(1);
         itemsGridPane.getChildren().add(customerTableView);
+        addItemButton.setDisable(true);
+        removeItemButton.setDisable(true);
+        editButton.setDisable(true);
     }
     @FXML
     public void logOutButtonOnMouseClicked() {
@@ -298,6 +297,25 @@ public class MainViewController extends Parent {
 
         customerList.clear();
         customerList.addAll(listCustomer);
+    }
+    private void setAccessibility(Boolean isAdmin){
+        if (!isAdmin) {
+            itemsGridPane.getChildren().add(shipmentTableView);
+            shipmentButton.setSelected(true);
+
+            clientHeader.getChildren().remove(vehiclesButton);
+            clientHeader.getChildren().remove(driversButton);
+            clientHeader.getChildren().remove(customersButton);
+            addItemButton.setDisable(false);
+            removeItemButton.setDisable(false);
+            editButton.setDisable(false);
+
+        }
+        else {
+            itemsGridPane.getChildren().add(vehicleTableView);
+            vehiclesButton.setSelected(true);
+
+        }
 
     }
 }

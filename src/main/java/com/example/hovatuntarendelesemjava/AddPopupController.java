@@ -7,6 +7,8 @@ import com.example.hovatuntarendelesemjava.model.base.HTARJModelBase;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 
@@ -20,90 +22,93 @@ public class AddPopupController {
     private Class<?> objClass;
     private HTARJModelBase editableObject;
     private final ArrayList<TextField> textFieldList = new ArrayList<>();
+    private ArrayList<String> messages = new ArrayList<>();
 
     @FXML
     private VBox fieldsVBox;
 
     @FXML
     void initialize() {
-        Platform.runLater(
-                () -> {
-                    if (editableObject == null) {
-                        //DEBUG MESSAGE
-                        System.out.println("ADDING");
-                        textFieldList.clear();
-                        for (Field f : objClass.getDeclaredFields()) {
-                            if (f.getType() == String.class){
-                                TextField textField = new TextField();
-                                textField.setPromptText(MainViewController.convertToColumnName(f.getName()));
-                                fieldsVBox.getChildren().add(textField);
-                                textFieldList.add(textField);
-                            }
-                            if (f.getType() == int.class || f.getType() == Integer.class){
-                                TextField textField = new TextField();
-                                textField.textProperty().addListener(getChangeListener(textField));
-                                textField.setPromptText(MainViewController.convertToColumnName(f.getName()));
-                                fieldsVBox.getChildren().add(textField);
-                                textFieldList.add(textField);
-                            }
-                            if (f.getType() == Double.class){
-                                TextField textField = new TextField();
-                                textField.textProperty().addListener(getChangeListener(textField));
-                                textField.setPromptText(MainViewController.convertToColumnName(f.getName()));
-                                fieldsVBox.getChildren().add(textField);
-                                textFieldList.add(textField);
-                            }
-                        }
-                    } else {
-                        //DEBUG MESSAGE
-                        System.out.println("EDITING");
-                        textFieldList.clear();
-                        for (Field f : editableObject.getClass().getDeclaredFields()) {
-                            if (f.getType() == String.class){
-                                TextField textField = new TextField();
-                                textField.setPromptText(MainViewController.convertToColumnName(f.getName()));
-                                String getterName = "get" + f.getName().substring(0, 1).toUpperCase() + f.getName().substring(1);
-                                try {
-                                    Method getter = editableObject.getClass().getDeclaredMethod(getterName);
-                                    textField.setText(getter.invoke(editableObject).toString());
-                                } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException nsme) {
-                                    System.out.println(nsme.getMessage());
-                                }
-                                fieldsVBox.getChildren().add(textField);
-                                textFieldList.add(textField);
-                            }
-                            if (f.getType() == int.class || f.getType() == Integer.class){
-                                TextField textField = new TextField();
-                                textField.textProperty().addListener(getChangeListener(textField));
-                                textField.setPromptText(MainViewController.convertToColumnName(f.getName()));
-                                String getterName = "get" + f.getName().substring(0, 1).toUpperCase() + f.getName().substring(1);
-                                try {
-                                    Method getter = editableObject.getClass().getDeclaredMethod(getterName);
-                                    textField.setText(getter.invoke(editableObject).toString());
-                                } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException nsme) {
-                                    System.out.println(nsme.getMessage());
-                                }
-                                fieldsVBox.getChildren().add(textField);
-                                textFieldList.add(textField);
-                            }
-                            if (f.getType() == Double.class){
-                                TextField textField = new TextField();
-                                textField.textProperty().addListener(getChangeListener(textField));
-                                textField.setPromptText(MainViewController.convertToColumnName(f.getName()));
-                                String getterName = "get" + f.getName().substring(0, 1).toUpperCase() + f.getName().substring(1);
-                                try {
-                                    Method getter = editableObject.getClass().getDeclaredMethod(getterName);
-                                    textField.setText(getter.invoke(editableObject).toString());
-                                } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException nsme) {
-                                    System.out.println(nsme.getMessage());
-                                }
-                                fieldsVBox.getChildren().add(textField);
-                                textFieldList.add(textField);
-                            }
-                        }
+        Platform.runLater(initTextFields());
+    }
+
+    private Runnable initTextFields() {
+        return () -> {
+            if (editableObject == null) {
+                //DEBUG MESSAGE
+                System.out.println("ADDING");
+                textFieldList.clear();
+                for (Field f : objClass.getDeclaredFields()) {
+                    if (f.getType() == String.class) {
+                        TextField textField = new TextField();
+                        textField.setPromptText(MainViewController.convertToColumnName(f.getName()));
+                        fieldsVBox.getChildren().add(textField);
+                        textFieldList.add(textField);
+                    }
+                    if (f.getType() == int.class || f.getType() == Integer.class) {
+                        TextField textField = new TextField();
+                        textField.textProperty().addListener(getChangeListener(textField));
+                        textField.setPromptText(MainViewController.convertToColumnName(f.getName()));
+                        fieldsVBox.getChildren().add(textField);
+                        textFieldList.add(textField);
+                    }
+                    if (f.getType() == Double.class) {
+                        TextField textField = new TextField();
+                        textField.textProperty().addListener(getChangeListener(textField));
+                        textField.setPromptText(MainViewController.convertToColumnName(f.getName()));
+                        fieldsVBox.getChildren().add(textField);
+                        textFieldList.add(textField);
                     }
                 }
-        );
+            } else {
+                //DEBUG MESSAGE
+                System.out.println("EDITING");
+                textFieldList.clear();
+                for (Field f : editableObject.getClass().getDeclaredFields()) {
+                    if (f.getType() == String.class) {
+                        TextField textField = new TextField();
+                        textField.setPromptText(MainViewController.convertToColumnName(f.getName()));
+                        String getterName = "get" + f.getName().substring(0, 1).toUpperCase() + f.getName().substring(1);
+                        try {
+                            Method getter = editableObject.getClass().getDeclaredMethod(getterName);
+                            textField.setText(getter.invoke(editableObject).toString());
+                        } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException nsme) {
+                            System.out.println(nsme.getMessage());
+                        }
+                        fieldsVBox.getChildren().add(textField);
+                        textFieldList.add(textField);
+                    }
+                    if (f.getType() == int.class || f.getType() == Integer.class) {
+                        TextField textField = new TextField();
+                        textField.textProperty().addListener(getChangeListener(textField));
+                        textField.setPromptText(MainViewController.convertToColumnName(f.getName()));
+                        String getterName = "get" + f.getName().substring(0, 1).toUpperCase() + f.getName().substring(1);
+                        try {
+                            Method getter = editableObject.getClass().getDeclaredMethod(getterName);
+                            textField.setText(getter.invoke(editableObject).toString());
+                        } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException nsme) {
+                            System.out.println(nsme.getMessage());
+                        }
+                        fieldsVBox.getChildren().add(textField);
+                        textFieldList.add(textField);
+                    }
+                    if (f.getType() == Double.class) {
+                        TextField textField = new TextField();
+                        textField.textProperty().addListener(getChangeListener(textField));
+                        textField.setPromptText(MainViewController.convertToColumnName(f.getName()));
+                        String getterName = "get" + f.getName().substring(0, 1).toUpperCase() + f.getName().substring(1);
+                        try {
+                            Method getter = editableObject.getClass().getDeclaredMethod(getterName);
+                            textField.setText(getter.invoke(editableObject).toString());
+                        } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException nsme) {
+                            System.out.println(nsme.getMessage());
+                        }
+                        fieldsVBox.getChildren().add(textField);
+                        textFieldList.add(textField);
+                    }
+                }
+            }
+        };
     }
 
     private ChangeListener<String> getChangeListener(TextField textField) {
@@ -135,22 +140,36 @@ public class AddPopupController {
             ++i;
         }
 
-        if (objClass == Vehicle.class) {
-            // Create a new Vehicle object with data from TextFields
-            Vehicle newVehicle = new Vehicle(paramsList);
-            ApiHandler.sendPostRequest(newVehicle);
-        } else if (objClass == Driver.class) {
-            // Create a new Vehicle object with data from TextFields
-            Driver newDriver = new Driver(paramsList);
-            ApiHandler.sendPostRequest(newDriver);
-        } else if (objClass == Shipment.class) {
-            Shipment newShipment = new Shipment(paramsList);
-            ApiHandler.sendPostRequest(newShipment);
-        } else {
-            editableObject.setAllFields(paramsList);
+        try {
+            if (objClass == Vehicle.class) {
+                // Create a new Vehicle object with data from TextFields
+                Vehicle newVehicle = new Vehicle(paramsList);
+                ApiHandler.sendPostRequest(newVehicle);
+            } else if (objClass == Driver.class) {
+                // Create a new Vehicle object with data from TextFields
+                Driver newDriver = new Driver(paramsList);
+                ApiHandler.sendPostRequest(newDriver);
+            } else if (objClass == Shipment.class) {
+                Shipment newShipment = new Shipment(paramsList);
+                ApiHandler.sendPostRequest(newShipment);
+            } else {
+                ApiHandler.sendDeleteRequest(editableObject);
+                editableObject.setAllFields(paramsList);
+                ApiHandler.sendPostRequest(editableObject);
+            }
+            fieldsVBox.getScene().getWindow().hide();
+            MainViewController.getInstance().reloadTableData();
+
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+            StringBuilder alert = new StringBuilder();
+            messages.add(e.getMessage());
+            for (String message : messages){
+                alert.append(message).append("\n");
+            }
+            new Alert(Alert.AlertType.WARNING, alert.toString(), ButtonType.OK).show();
         }
 
-        fieldsVBox.getScene().getWindow().hide();
-        MainViewController.getInstance().reloadTableData();
+
     }
 }

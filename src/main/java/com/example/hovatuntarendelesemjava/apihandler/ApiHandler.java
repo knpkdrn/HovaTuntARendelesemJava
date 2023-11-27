@@ -17,7 +17,7 @@ import java.util.concurrent.ExecutionException;
 public class ApiHandler {
 
     private static HttpRequest request;
-    private static final String uriBase = "https://f120-84-3-207-209.ngrok.io";
+    private static final String uriBase = "https://b82b-84-3-207-209.ngrok.io";
 
     public static void sendPostRequest(Object object){
         HttpClient httpClient = HttpClient.newHttpClient();
@@ -77,7 +77,6 @@ public class ApiHandler {
                     .GET()
                     .build();
         } else if (object instanceof Customer customer){
-
             request = HttpRequest.newBuilder()
                     .uri(URI.create(uriBase + "/api/customers/customerId/" + customer.getCustomerId()))
                     .header("Content-Type", "application/json")
@@ -277,5 +276,38 @@ public class ApiHandler {
                 }).join();
     }
 
+    public static Boolean sendNewPasswordRequest(String email, String newPassword) {
+        HttpClient httpClient = HttpClient.newHttpClient();
+        Gson gson = new Gson();
+
+        request = HttpRequest.newBuilder()
+                .uri(URI.create(uriBase + "/api/users/updatePassword/" + email + "&" + newPassword))
+                .header("Content-Type", "application/json")
+                .PUT(HttpRequest.BodyPublishers.ofString(gson.toJson(UserData.getInstance().toUser())))
+                .build();
+        CompletableFuture<HttpResponse<String>> response = httpClient.sendAsync(request, HttpResponse.BodyHandlers.ofString());
+
+        return response.thenApply(HttpResponse::body).
+                thenApplyAsync(responseBody -> {
+
+                    try {
+                        if (response.get().statusCode() == 500) {
+                            return null;
+                        } else if (response.get().statusCode() == 200) {
+                            return true;
+                        } else if (response.get().statusCode() == 404) {
+                            return false;
+                        }
+                    } catch (InterruptedException e) {
+                        //throw new RuntimeException(e);
+                        System.out.println(e.getMessage());
+                        return null;
+                    } catch (ExecutionException e) {
+                        System.out.println(e.getMessage());
+                        return null;
+                    }
+                    return null;
+                }).join();
+    }
 
 }

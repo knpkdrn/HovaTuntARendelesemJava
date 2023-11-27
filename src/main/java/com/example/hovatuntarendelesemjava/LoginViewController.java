@@ -2,7 +2,6 @@ package com.example.hovatuntarendelesemjava;
 
 import com.example.hovatuntarendelesemjava.UserData.UserData;
 import com.example.hovatuntarendelesemjava.apihandler.ApiHandler;
-import com.example.hovatuntarendelesemjava.model.*;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -14,7 +13,6 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.Objects;
-import java.util.concurrent.ExecutionException;
 import java.util.regex.*;
 
 public class LoginViewController {
@@ -43,10 +41,11 @@ public class LoginViewController {
 
                 if(ApiHandler.sendLogInGetRequest(userIdField.getText(), passwordField.getText()) != null) {
 
-                    if(UserData.getInstance().getWasLoggedIn()){
+                    if(!UserData.getInstance().getWasLoggedIn()){
                         // change password
+                        openChangePasswordWindow(userIdField.getText(), passwordField.getText());
                     }
-                    openMainWindow();
+                    else openMainWindow();
                 }
                 else {
                     new Alert(Alert.AlertType.WARNING, "Email or Password is incorrect!").show();
@@ -71,8 +70,24 @@ public class LoginViewController {
 
         // Set user for the app
         MainViewController mainViewController = fxmlLoader.getController();
-        logInButton.getScene().getWindow().hide();
+        closeThisWindow();
         stage.show();
+    }
+    private void openChangePasswordWindow(String email, String password) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("change-password-view.fxml"));
+        Scene scene = new Scene(fxmlLoader.load());
+        Stage stage = new Stage();
+        stage.setScene(scene);
+        stage.setTitle("Change Your Password!");
+
+        ChangePasswordViewController cpvc = fxmlLoader.getController();
+        cpvc.email = email;
+        cpvc.password = password;
+        closeThisWindow();
+        stage.show();
+    }
+    private void closeThisWindow(){
+        logInButton.getScene().getWindow().hide();
     }
     private boolean validateEmail(String email){
         Pattern pattern = Pattern.compile("^[a-z0-9]+@[a-z]+\\.[a-z]+");
