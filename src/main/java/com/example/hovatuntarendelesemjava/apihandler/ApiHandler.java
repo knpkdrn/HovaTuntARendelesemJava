@@ -1,15 +1,12 @@
 package com.example.hovatuntarendelesemjava.apihandler;
 
-import com.example.hovatuntarendelesemjava.Main;
 import com.example.hovatuntarendelesemjava.model.Customer;
 import com.example.hovatuntarendelesemjava.model.Driver;
 import com.example.hovatuntarendelesemjava.model.Shipment;
 import com.example.hovatuntarendelesemjava.model.Vehicle;
-import com.example.hovatuntarendelesemjava.model.base.HTARJModelBase;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
-import java.lang.reflect.Type;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
@@ -19,10 +16,10 @@ import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
-public class VehicleHandler {
+public class ApiHandler {
 
     private static HttpRequest request;
-    private static final String uriBase = "http://localhost:8080";
+    private static final String uriBase = "https://63d5-84-3-207-209.ngrok.io";
 
     public static void sendPostRequest(Object object){
         HttpClient httpClient = HttpClient.newHttpClient();

@@ -4,7 +4,7 @@ import com.example.hovatuntarendelesemjava.model.base.HTARJModelBase;
 
 public class Driver implements HTARJModelBase {
 
-    private int driverID;
+    private int driverId;
     private String firstName;
     private String lastName;
     private String licenseNumber;
@@ -13,7 +13,7 @@ public class Driver implements HTARJModelBase {
     private String assignedVehicleLicense;
 
     public Driver(String[] paramsList) {
-        this.driverID = Integer.parseInt(paramsList[0]);
+        this.driverId = Integer.parseInt(paramsList[0]);
         this.firstName = paramsList[1];
         this.lastName = paramsList[2];
         this.licenseNumber = paramsList[3];
@@ -23,7 +23,7 @@ public class Driver implements HTARJModelBase {
     }
 
     public int getDriverID() {
-        return driverID;
+        return driverId;
     }
     public String getFirstName() {
         return firstName;
@@ -44,7 +44,7 @@ public class Driver implements HTARJModelBase {
         return assignedVehicleLicense;
     }
     public void setDriverID(int driverID) {
-        this.driverID = driverID;
+        this.driverId = driverID;
     }
     public void setFirstName(String firstName) {
         this.firstName = firstName;
@@ -67,7 +67,7 @@ public class Driver implements HTARJModelBase {
 
     @Override
     public void setAllFields(String[] paramsList) {
-        this.driverID = Integer.parseInt(paramsList[0]);
+        this.driverId = Integer.parseInt(paramsList[0]);
         this.firstName = paramsList[1];
         this.lastName = paramsList[2];
         this.licenseNumber = paramsList[3];

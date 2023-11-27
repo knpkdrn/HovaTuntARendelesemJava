@@ -1,7 +1,7 @@
 // AddPopupController.java
 package com.example.hovatuntarendelesemjava;
 
-import com.example.hovatuntarendelesemjava.apihandler.VehicleHandler;
+import com.example.hovatuntarendelesemjava.apihandler.ApiHandler;
 import com.example.hovatuntarendelesemjava.model.*;
 import com.example.hovatuntarendelesemjava.model.base.HTARJModelBase;
 import javafx.application.Platform;
@@ -145,14 +145,14 @@ public class AddPopupController {
         if (objClass == Vehicle.class) {
             // Create a new Vehicle object with data from TextFields
             Vehicle newVehicle = new Vehicle(paramsList);
-            VehicleHandler.sendPostRequest(newVehicle);
+            ApiHandler.sendPostRequest(newVehicle);
         } else if (objClass == Driver.class) {
             // Create a new Vehicle object with data from TextFields
             Driver newDriver = new Driver(paramsList);
-            VehicleHandler.sendPostRequest(newDriver);
+            ApiHandler.sendPostRequest(newDriver);
         } else if (objClass == Shipment.class) {
             Shipment newShipment = new Shipment(paramsList);
-            VehicleHandler.sendPostRequest(newShipment);
+            ApiHandler.sendPostRequest(newShipment);
         } else {
             editableObject.setAllFields(paramsList);
         }

@@ -1,6 +1,6 @@
 package com.example.hovatuntarendelesemjava;
 
-import com.example.hovatuntarendelesemjava.apihandler.VehicleHandler;
+import com.example.hovatuntarendelesemjava.apihandler.ApiHandler;
 import com.example.hovatuntarendelesemjava.model.*;
 import com.example.hovatuntarendelesemjava.model.base.HTARJModelBase;
 import javafx.application.Platform;
@@ -28,7 +28,7 @@ public class MainViewController extends Parent {
     @FXML
     public Button removeItemButton;
     @FXML
-    public Button refreshButton;
+    public Button editButton;
     @FXML
     public HBox clientHeader;
     @FXML
@@ -115,7 +115,7 @@ public class MainViewController extends Parent {
         reloadTableData();
 
         Platform.runLater(() -> {
-            System.out.println(user.getEmail() + " " + user.getPassword() + " " + user.getAdmin());
+            System.out.println(user.getUsername() + " " + user.getEmail() + " " + user.getPassword() + " " + user.getAdmin());
             logOutButton.setText(user.getEmail());
             double prefWidth = logOutButton.prefWidth(-1);
             logOutButton.setMinWidth(prefWidth);
@@ -175,36 +175,27 @@ public class MainViewController extends Parent {
     private void onVehiclesButtonClicked() {
         itemsGridPane.getChildren().remove(1);
         itemsGridPane.getChildren().add(vehicleTableView);
-        addItemButton.setDisable(false);
-        removeItemButton.setDisable(false);
-        refreshButton.setDisable(false);
+
     }
 
     @FXML
     private void onDriversButtonClicked() {
         itemsGridPane.getChildren().remove(1);
         itemsGridPane.getChildren().add(driverTableView);
-        addItemButton.setDisable(false);
-        removeItemButton.setDisable(false);
-        refreshButton.setDisable(false);
+
     }
 
     @FXML
     private void onShipmentButtonClicked() {
         itemsGridPane.getChildren().remove(1);
         itemsGridPane.getChildren().add(shipmentTableView);
-        addItemButton.setDisable(false);
-        removeItemButton.setDisable(false);
-        refreshButton.setDisable(false);
+
     }
 
     @FXML
     private void onCustomersButtonClicked() {
         itemsGridPane.getChildren().remove(1);
         itemsGridPane.getChildren().add(customerTableView);
-        addItemButton.setDisable(true);
-        removeItemButton.setDisable(true);
-        refreshButton.setDisable(true);
     }
     @FXML
     public void logOutButtonOnMouseClicked() {
@@ -296,10 +287,10 @@ public class MainViewController extends Parent {
     }
 
     public void reloadTableData() throws ExecutionException, InterruptedException {
-        List<Vehicle> listVehicle = VehicleHandler.sendGetAllRequest(Vehicle.class);
-        List<Driver> listDriver = VehicleHandler.sendGetAllRequest(Driver.class);
-        List<Shipment> listShipment = VehicleHandler.sendGetAllRequest(Shipment.class);
-        List<Customer> listCustomer = VehicleHandler.sendGetAllRequest(Customer.class);
+        List<Vehicle> listVehicle = ApiHandler.sendGetAllRequest(Vehicle.class);
+        List<Driver> listDriver = ApiHandler.sendGetAllRequest(Driver.class);
+        List<Shipment> listShipment = ApiHandler.sendGetAllRequest(Shipment.class);
+        List<Customer> listCustomer = ApiHandler.sendGetAllRequest(Customer.class);
 
         vehicleList.clear();
         vehicleList.addAll(listVehicle);
@@ -314,5 +305,4 @@ public class MainViewController extends Parent {
         customerList.addAll(listCustomer);
 
     }
-
 }
